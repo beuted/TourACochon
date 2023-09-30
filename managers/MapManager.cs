@@ -122,7 +122,7 @@ public class MapManager : Node
 
     private Vector2 GetItemNewDestination(Vector2i cellPosi, Vector2 direction)
     {
-        var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
+		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * TileSize + TileSize / 2, cellPosi.Y * TileSize + TileSize / 2);
 
         return currentPositionCenteredOnCell + (direction * TileSize);
     }

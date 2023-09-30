@@ -23,4 +23,4 @@ tile_data = PoolIntArray( 393243, 1, 0, 393244, 1, 0, 393245, 1, 0, 393246, 1, 0
 [node name="ItemsContainer" type="Node2D" parent="."]
 
 [node name="Item" parent="ItemsContainer" instance=ExtResource( 3 )]
-position = Vector2( 177, 168 )
+position = Vector2( 168, 168 )
