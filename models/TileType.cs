@@ -12,10 +12,11 @@ public enum TileType
   InputRight = 6,
   InputDown = 7,
   InputLeft = 8,
-  OutputUp = 9,
+  // Conveyor == 9
   OutputRight = 10,
   OutputDown = 11,
   OutputLeft = 12,
+  OutputUp = 13,
 }
 
 public static class TileTypeExtension
