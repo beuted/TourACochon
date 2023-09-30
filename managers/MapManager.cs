@@ -164,8 +164,9 @@ public class MapManager : Node
 		}
 	}
 
-	public bool PlaceMachine(Vector2i pos, MachineType type, Direction direction)
+	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
 	{
+		GD.Print("pos ", pos);
 		if (pos.X < 0 || pos.X > 10 || pos.Y < 0 || pos.Y > 10)
 		{
 			GD.Print("PlaceMachine failed: out of boundaries");
@@ -178,14 +179,16 @@ public class MapManager : Node
 			return false;
 		}
 
-
 		//TODO set the tile (_tileDictionary[pos] =  ...)
-		GD.Print("PlaceMachine ", pos, ", ", type);
+		GD.Print("PlaceMachine ", pos, ", ", machineType);
+
+		var tileType = machineType.GetTileType(direction);
+		_tileDictionary[pos] = new Tile(tileType);
 
 		// Instanciate a machine to add on the map
 		var newMachine = _machineScene.Instance<Machine>();
 		newMachine.Position = new Vector2(pos.X * TileSize, pos.Y * TileSize);
-		newMachine.TileType = type.GetTileType(direction);
+		newMachine.TileType = machineType.GetTileType(direction);
 
 		_tilesContainer.AddChild(newMachine);
 		_machineDictionary[pos] = newMachine;

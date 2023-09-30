@@ -17,7 +17,7 @@ public class MapTileMap : TileMap
         {
             var tilePos = WorldToMap(eventMouseButton.Position);
 
-            _tileBuilderManager.PlaceMachine(new Vector2i((int)tilePos.x, (int)tilePos.y));
+            _tileBuilderManager.PlaceMachine(new Vector2i((int)tilePos.x + 1, (int)tilePos.y + 1));
         }
     }
 }
