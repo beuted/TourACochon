@@ -7,6 +7,8 @@ public class Item : Node2D
 
     private Sprite _sprite;
 
+    public Vector2 Destination;
+
     // Called when the node enters the scene tree for the first time.
 
     public override void _Ready()
@@ -14,6 +16,12 @@ public class Item : Node2D
         _sprite = GetNode<Sprite>("Sprite");
 
         _sprite.Frame = (int)Type;
+
+        Destination = Position;
     }
 
+    public override void _Process(float delta)
+    {
+        Position += delta * (Destination - Position) * 10f; //TODO: We should move at 32 pixel per sec
+    }
 }

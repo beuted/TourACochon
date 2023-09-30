@@ -5,63 +5,74 @@ public class MapManager : Node
 {
     public static float TileSize = 16f;
     public static float Speed = 100f;
+    public static ulong TimeBetweenTurnMs = 1000;
+
+    public static ulong _lastUpdateTimeMs;
 
 
     private TileMap _tileMap;
     private Node2D _itemsContainer;
-	private bool _initialized = false;
+    private bool _initialized = false;
 
 
-	public override void _Ready()
+    public override void _Ready()
     {
-
+        _lastUpdateTimeMs = OS.GetSystemTimeMsecs();
     }
 
     public override void _Process(float delta)
     {
-		if (!_initialized)
-		{
-			return;
-		}
+        if (!_initialized)
+        {
+            return;
+        }
 
-		Tick(delta);
+        var currentTime = OS.GetSystemTimeMsecs();
+        if (currentTime > _lastUpdateTimeMs + TimeBetweenTurnMs)
+        {
+            Tick();
+
+            _lastUpdateTimeMs = _lastUpdateTimeMs + TimeBetweenTurnMs;
+        }
     }
 
     public void Init(TileMap tileMap, Node2D itemsContainer)
     {
         _tileMap = tileMap;
         _itemsContainer = itemsContainer;
-		_initialized = true;
-	}
+        _initialized = true;
+    }
 
-    public void Tick(float delta)
+    public void Tick()
     {
         foreach (var obj in _itemsContainer.GetChildren())
         {
             var item = obj as Item;
 
-            var cell = _tileMap.GetCell((int)(item.Position.x / TileSize), (int)(item.Position.y / TileSize));
-
-            GD.Print(cell);
+            var cellPosi = new Vector2i((int)(item.Position.x / TileSize), (int)(item.Position.y / TileSize));
+            var cell = _tileMap.GetCell(cellPosi.X, cellPosi.Y);
 
             if (cell == -1)
                 continue;
 
-            item.Position += GetItemMotion(cell, delta);
+            item.Destination = GetItemNewDestination(cellPosi, cell);
         }
     }
 
-    private Vector2 GetItemMotion(int cell, float delta)
+    private Vector2 GetItemNewDestination(Vector2i cellPosi, int cell)
     {
         TileType tileType = (TileType)cell;
+
+        var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
+
         switch (tileType)
         {
-            case TileType.TreadmillUp: return new Vector2(0, -delta * Speed);
-            case TileType.TreadmillRight: return new Vector2(delta * Speed, 0);
-            case TileType.TreadmillDown: return new Vector2(0, delta * Speed);
-            case TileType.TreadmillLeft: return new Vector2(-delta * Speed, 0);
-            case TileType.Jonction: return new Vector2(0, 0); //TODO
-            default: throw new Exception("GetItemMotion case not handled !!!!!!!");
+            case TileType.TreadmillUp: return currentPositionCenteredOnCell + new Vector2(0, -TileSize);
+            case TileType.TreadmillRight: return currentPositionCenteredOnCell + new Vector2(TileSize, 0);
+            case TileType.TreadmillDown: return currentPositionCenteredOnCell + new Vector2(0, TileSize);
+            case TileType.TreadmillLeft: return currentPositionCenteredOnCell + new Vector2(-TileSize, 0);
+            case TileType.Jonction: return currentPositionCenteredOnCell; //TODO
+            default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
         }
     }
 
