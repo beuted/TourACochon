@@ -37,20 +37,31 @@ root_node = NodePath("../..")
 autoplay = "Default"
 anims/Default = SubResource( 1 )
 
-[node name="Junction" type="Node2D" parent="."]
+[node name="Jonction" type="Node2D" parent="."]
 visible = false
 position = Vector2( 16, 16 )
 
-[node name="Sprite" type="Sprite" parent="Junction"]
+[node name="Sprite" type="Sprite" parent="Jonction"]
 texture = ExtResource( 3 )
 hframes = 10
 vframes = 40
 frame = 80
 
 [node name="Input" type="Node2D" parent="."]
+visible = false
+position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="Input"]
 texture = ExtResource( 3 )
 hframes = 10
 vframes = 40
 frame = 61
+
+[node name="Output" type="Node2D" parent="."]
+position = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Output"]
+texture = ExtResource( 3 )
+hframes = 10
+vframes = 40
+frame = 131

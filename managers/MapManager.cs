@@ -9,14 +9,19 @@ public class MapManager : Node
 	public static ulong TimeBetweenTurnMs = 1000;
 	public static ulong _lastUpdateTimeMs;
 
-	private TileMap _tileMap;
-	private Dictionary<Vector2i, Tile> _tileDictionary = new Dictionary<Vector2i, Tile>(); // This structure has been added to hold more info than the simple tileMap. It's initiated with it
 	private Node2D _itemsContainer;
+	private Node2D _tilesContainer;
+
+	// This structure has been added to hold more info than the simple tileMap. It's initiated with it
+	private Dictionary<Vector2i, Tile> _tileDictionary = new Dictionary<Vector2i, Tile>();
+	// This structure has been added to the actual Node2d of the tiles we show on the map, this is to deal with animated tiles and special effetcs that are not well supported on tilemap
+	private Dictionary<Vector2i, Machine> _machineDictionary = new Dictionary<Vector2i, Machine>();
 	private bool _initialized = false;
 
 	private CameraManager _cameraManager;
 
 	public PackedScene _itemScene = ResourceLoader.Load<PackedScene>("res://entities/Item.tscn");
+	public PackedScene _machineScene = ResourceLoader.Load<PackedScene>("res://entities/Machine.tscn");
 
 	public override void _Ready()
 	{
@@ -43,23 +48,35 @@ public class MapManager : Node
 		}
 	}
 
-	public void Init(TileMap tileMap, Node2D itemsContainer)
+	public void Init(TileMap tileMap, Node2D itemsContainer, Node2D tilesContainer)
 	{
-		_tileMap = tileMap;
+		tileMap.Visible = false; // We hide the tilemap because evryhting is shown in tilesContainer now
+
 		_itemsContainer = itemsContainer;
+		_tilesContainer = tilesContainer;
+
 		_initialized = true;
 
 		// Init _tileDictionary based on _tileMap
-		foreach (var obj in _tileMap.GetUsedCells())
+		foreach (var obj in tileMap.GetUsedCells())
 		{
 			var cellVect2 = obj as Vector2?;
 			if (!cellVect2.HasValue)
 				continue;
 			var cell = (Vector2i)cellVect2.Value;
 
-			var tileType = (TileType)_tileMap.GetCell(cell.X, cell.Y);
+			var tileType = (TileType)tileMap.GetCell(cell.X, cell.Y);
 
 			_tileDictionary[cell] = new Tile(tileType);
+
+
+			// Instanciate a machine to add on the map
+			var newMachine = _machineScene.Instance<Machine>();
+			newMachine.Position = new Vector2(cell.X * TileSize, cell.Y * TileSize);
+			newMachine.TileType = tileType;
+
+			_tilesContainer.AddChild(newMachine);
+			_machineDictionary[cell] = newMachine;
 		}
 	}
 
@@ -71,30 +88,29 @@ public class MapManager : Node
 			var item = obj as Item;
 
 			Vector2i cellPosi = item.Position / TileSize;
-			var cell = _tileMap.GetCell(cellPosi.X, cellPosi.Y);
 
-			if (cell == -1)
+			if (!_tileDictionary.TryGetValue(cellPosi, out var cell))
 				continue;
 
-			if (_tileDictionary.ContainsKey(cellPosi) && _tileDictionary[cellPosi].Recipe != null)
+			if (_tileDictionary.ContainsKey(cellPosi) && cell.Recipe != null)
 			{
-				if (!_tileDictionary[cellPosi].Recipe.Input.ContainsKey(item.Perks))
+				if (!cell.Recipe.Input.ContainsKey(item.Perks))
 				{
 					GD.Print("Item rejected, TODO: Print a message to the player");
 				}
 				else
 				{
-					if (!_tileDictionary[cellPosi].Inputs.ContainsKey(item.Perks))
-						_tileDictionary[cellPosi].Inputs[item.Perks] = 0;
+					if (!cell.Inputs.ContainsKey(item.Perks))
+						cell.Inputs[item.Perks] = 0;
 
-					_tileDictionary[cellPosi].Inputs[item.Perks] += 1;
+					cell.Inputs[item.Perks] += 1;
 				}
 
 				item.QueueFree();
 				continue;
 			}
 
-			var tileType = (TileType)cell;
+			var tileType = cell.Type;
 			item.Direction = GetItemNewDirection(tileType, item.Direction);
 			item.Destination = GetItemNewDestination(cellPosi, item.Direction);
 		}
@@ -148,7 +164,7 @@ public class MapManager : Node
 		}
 	}
 
-	public bool PlaceMachine(Vector2i pos, MachineType type)
+	public bool PlaceMachine(Vector2i pos, MachineType type, Direction direction)
 	{
 		if (pos.X < 0 || pos.X > 10 || pos.Y < 0 || pos.Y > 10)
 		{
@@ -165,6 +181,14 @@ public class MapManager : Node
 
 		//TODO set the tile (_tileDictionary[pos] =  ...)
 		GD.Print("PlaceMachine ", pos, ", ", type);
+
+		// Instanciate a machine to add on the map
+		var newMachine = _machineScene.Instance<Machine>();
+		newMachine.Position = new Vector2(pos.X * TileSize, pos.Y * TileSize);
+		newMachine.TileType = type.GetTileType(direction);
+
+		_tilesContainer.AddChild(newMachine);
+		_machineDictionary[pos] = newMachine;
 
 		return true; // sucess
 	}

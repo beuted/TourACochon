@@ -3,59 +3,64 @@ using System;
 
 public class Machine : Node2D
 {
-    public TileType Type;
-    //public ItemType? Generate;
+    public TileType TileType;
 
     private Node2D _treadmill;
     private Node2D _jonction;
     private Node2D _input;
+    private Node2D _output;
 
     public override void _Ready()
     {
         _treadmill = GetNode<Node2D>("Treadmill");
         _jonction = GetNode<Node2D>("Jonction");
         _input = GetNode<Node2D>("Input");
-    }
+        _output = GetNode<Node2D>("Output");
 
-    public Machine Init(TileType tileType)
-    {
         _treadmill.Visible = false;
         _jonction.Visible = false;
         _input.Visible = false;
+        _output.Visible = false;
 
-        Type = tileType;
-
-        //Generate = tileType.ItemGenerated();
-
-        if (tileType == TileType.TreadmillUp || tileType == TileType.TreadmillRight || tileType == TileType.TreadmillDown || tileType == TileType.TreadmillLeft)
+        if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
         {
             _treadmill.Visible = true;
-            switch (tileType)
+            switch (TileType)
             {
-                case TileType.TreadmillUp: _treadmill.RotationDegrees = 90; break;
+                case TileType.TreadmillUp: _treadmill.RotationDegrees = 270; break;
                 case TileType.TreadmillRight: _treadmill.RotationDegrees = 0; break;
-                case TileType.TreadmillDown: _treadmill.RotationDegrees = 270; break;
+                case TileType.TreadmillDown: _treadmill.RotationDegrees = 90; break;
                 case TileType.TreadmillLeft: _treadmill.RotationDegrees = 180; break;
             }
         }
-        else if (tileType == TileType.Jonction)
+        else if (TileType == TileType.Jonction)
         {
             _jonction.Visible = true;
         }
-        else if (tileType == TileType.InputUp || tileType == TileType.InputRight || tileType == TileType.InputDown || tileType == TileType.InputLeft)
+        else if (TileType == TileType.InputUp || TileType == TileType.InputRight || TileType == TileType.InputDown || TileType == TileType.InputLeft)
         {
             _input.Visible = true;
 
-            switch (tileType)
+            switch (TileType)
             {
-                case TileType.TreadmillUp: _input.RotationDegrees = 90; break;
+                case TileType.TreadmillUp: _input.RotationDegrees = 270; break;
                 case TileType.TreadmillRight: _input.RotationDegrees = 0; break;
-                case TileType.TreadmillDown: _input.RotationDegrees = 270; break;
+                case TileType.TreadmillDown: _input.RotationDegrees = 90; break;
                 case TileType.TreadmillLeft: _input.RotationDegrees = 180; break;
             }
         }
+        else if (TileType == TileType.OutputRight || TileType == TileType.OutputDown || TileType == TileType.OutputLeft || TileType == TileType.OutputUp)
+        {
+            _output.Visible = true;
 
-        return this;
+            switch (TileType)
+            {
+                case TileType.OutputUp: _output.RotationDegrees = 270; break;
+                case TileType.OutputRight: _output.RotationDegrees = 0; break;
+                case TileType.OutputDown: _output.RotationDegrees = 90; break;
+                case TileType.OutputLeft: _output.RotationDegrees = 180; break;
+            }
+        }
+
     }
-
 }

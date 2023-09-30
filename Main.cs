@@ -16,7 +16,7 @@ public class Main : Node
         _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
         _tileBuilderManager = (TileBuilderManager)GetNode($"/root/{nameof(TileBuilderManager)}"); // Singleton
 
-        _mapManager.Init(GetNode<TileMap>("TileMap"), GetNode<Node2D>("ItemsContainer"));
+        _mapManager.Init(GetNode<TileMap>("TileMap"), GetNode<Node2D>("ItemsContainer"), GetNode<Node2D>("VisualTiles"));
         _cameraManager.Init(GetNode<Camera>("Camera"));
         _soundManager.Init();
         _tileBuilderManager.Init();
