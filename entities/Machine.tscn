@@ -37,6 +37,7 @@ autoplay = "Default"
 anims/Default = SubResource( 1 )
 
 [node name="Jonction" type="Node2D" parent="."]
+visible = false
 position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="Jonction"]
@@ -46,6 +47,7 @@ vframes = 40
 frame = 80
 
 [node name="Input" type="Node2D" parent="."]
+visible = false
 position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="Input"]

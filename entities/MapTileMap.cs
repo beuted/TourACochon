@@ -15,9 +15,9 @@ public class MapTileMap : TileMap
     {
         if (evt is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed && eventMouseButton.ButtonIndex == (int)ButtonList.Left)
         {
-            var tilePos = WorldToMap(eventMouseButton.Position);
+            var tilePos = WorldToMap(GetGlobalMousePosition());
 
-            _tileBuilderManager.PlaceMachine(new Vector2i((int)tilePos.x + 1, (int)tilePos.y + 1));
+            _tileBuilderManager.PlaceMachine(new Vector2i((int)tilePos.x, (int)tilePos.y));
         }
     }
 }

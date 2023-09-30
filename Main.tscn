@@ -68,3 +68,8 @@ MachineType = 1
 margin_left = 158.0
 margin_right = 222.0
 MachineType = 2
+
+[node name="SelectTileButton4" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 237.0
+margin_right = 301.0
+MachineType = 3
