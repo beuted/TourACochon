@@ -174,7 +174,7 @@ public class MapManager : Node
 	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
 	{
 		GD.Print("pos ", pos);
-		if (pos.X < 0 || pos.X > 10 || pos.Y < 0 || pos.Y > 10)
+		if (pos.X < 0 || pos.X > 32 || pos.Y < 0 || pos.Y > 32)
 		{
 			GD.Print("PlaceMachine failed: out of boundaries");
 			return false;
