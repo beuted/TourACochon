@@ -1,4 +1,6 @@
 // Doit respecter l'ordre de définition des tiles du tileset
+using System.Collections.Generic;
+
 public enum TileType
 {
   TreadmillUp = 0,
@@ -31,7 +33,7 @@ public static class TileTypeExtension
     }
   }
 
-  public static bool Consumes(this TileType tileType)
+  public static Recipe GetRecipe(this TileType tileType)
   {
     switch (tileType)
     {
@@ -39,8 +41,15 @@ public static class TileTypeExtension
       case TileType.OutputRight:
       case TileType.OutputDown:
       case TileType.OutputLeft:
-        return true;
-      default: return false;
+        return new Recipe
+        {
+          Input = new Dictionary<PigPerks, int>()
+          {
+            [PigPerks.None] = 1,
+          },
+          Output = new List<PigPerks>(),
+        };
+      default: return null;
     }
   }
 }

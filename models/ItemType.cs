@@ -1,6 +1,5 @@
 using System;
 
-[Flags]
 public enum PigPerks
 {
   None = 0,

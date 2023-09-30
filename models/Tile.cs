@@ -1,18 +1,15 @@
 using System;
+using System.Collections.Generic;
 
 public class Tile
 {
     public TileType Type;
-    public Func<Item, Item> Produces;
-    public Func<Item, bool> Consumes;
+    public Dictionary<PigPerks, int> Inputs = new Dictionary<PigPerks, int>();
+    public Recipe Recipe;
 
-    public Tile(TileType type, Func<Item, Item> generate = null, Func<Item, bool> consume = null)
+    public Tile(TileType type)
     {
         Type = type;
-        Produces = generate ?? _generateNothing;
-        Consumes = consume ?? _consumeNothing;
+        Recipe = type.GetRecipe();
     }
-
-    private static readonly Func<Item, Item> _generateNothing = (_) => null;
-    private static readonly Func<Item, bool> _consumeNothing = (_) => true;
 }
