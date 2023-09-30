@@ -3,19 +3,53 @@ using System;
 
 public class SoundManager : Node
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    private AudioStreamPlayer _audioStreamPlayerMusic;
 
-    // Called when the node enters the scene tree for the first time.
+    private bool _isMusicMuted = false;
+    private bool _areEffectMuted = false;
+
     public override void _Ready()
     {
-        
+        _audioStreamPlayerMusic = GetNode<AudioStreamPlayer>($"AudioStreamPlayerMusic"); // Singleton
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public void Init()
+    {
+        _audioStreamPlayerMusic.Bus = "Music";
+    }
+
+    public void PlayMusic()
+    {
+        GD.Print("Playing music");
+        _audioStreamPlayerMusic.Play();
+    }
+
+    public void ToggleMuteMusic()
+    {
+        if (!_isMusicMuted)
+        {
+            GD.Print("mute");
+            AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), true);
+        }
+        else
+        {
+            AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), false);
+        }
+
+        _isMusicMuted = !_isMusicMuted;
+    }
+
+    public void ToggleMuteEffects()
+    {
+        if (!_areEffectMuted)
+        {
+            AudioServer.SetBusMute(AudioServer.GetBusIndex("Effects"), true);
+        }
+        else
+        {
+            AudioServer.SetBusMute(AudioServer.GetBusIndex("Effects"), false);
+        }
+
+        _areEffectMuted = !_areEffectMuted;
+    }
 }
