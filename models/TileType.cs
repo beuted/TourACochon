@@ -17,6 +17,10 @@ public enum TileType
   OutputDown = 11,
   OutputLeft = 12,
   OutputUp = 13,
+  MachineWasherRight = 14,
+  MachineWasherUp = 15,
+  MachineWasherDown = 16,
+  MachineWasherLeft = 17,
 }
 
 public static class TileTypeExtension
@@ -46,9 +50,23 @@ public static class TileTypeExtension
         {
           Input = new Dictionary<PigPerks, int>()
           {
-            [PigPerks.None] = 1,
+            [PigPerks.Cleaned] = 1,
           },
           Output = new List<PigPerks>(),
+        };
+      case TileType.MachineWasherLeft:
+      case TileType.MachineWasherRight:
+      case TileType.MachineWasherUp:
+      case TileType.MachineWasherDown:
+        return new Recipe
+        {
+          Input = new Dictionary<PigPerks, int>()
+          {
+            [PigPerks.None] = 1,
+          },
+          Output = new List<PigPerks>() {
+            PigPerks.Cleaned,
+          },
         };
       default: return null;
     }

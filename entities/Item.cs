@@ -16,7 +16,7 @@ public class Item : Node2D
     {
         _sprite = GetNode<Sprite>("Sprite");
 
-        _sprite.Frame = 0;
+        _sprite.Frame = (int)Perks;
 
         Destination = Position;
     }

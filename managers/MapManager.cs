@@ -92,7 +92,9 @@ public class MapManager : Node
 			if (!_tileDictionary.TryGetValue(cellPosi, out var cell))
 				continue;
 
-			if (_tileDictionary.ContainsKey(cellPosi) && cell.Recipe != null)
+			if (cell.Recipe != null
+				// In order not to consume what was just produced, we ignore the items that were outputed by the machine
+				&& !cell.Recipe.Output.Contains(item.Perks))
 			{
 				if (!cell.Recipe.Input.ContainsKey(item.Perks))
 				{
@@ -123,6 +125,7 @@ public class MapManager : Node
 			{
 				var newItem = _itemScene.Instance<Item>();
 				newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
+				newItem.Perks = PigPerks.None;
 				_itemsContainer.AddChild(newItem);
 				continue;
 			}
@@ -132,7 +135,7 @@ public class MapManager : Node
 				continue;
 			}
 
-			var numberOfRecipes = 0;
+			var numberOfRecipes = int.MaxValue;
 			foreach (var recipePerk in tile.Recipe.Input)
 			{
 				if (!tile.Inputs.TryGetValue(recipePerk.Key, out var inputCount))
@@ -157,9 +160,13 @@ public class MapManager : Node
 					}
 				}
 
-				var newItem = _itemScene.Instance<Item>();
-				newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
-				_itemsContainer.AddChild(newItem);
+				foreach (var output in tile.Recipe.Output)
+				{
+					var newItem = _itemScene.Instance<Item>();
+					newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
+					newItem.Perks = output;
+					_itemsContainer.AddChild(newItem);
+				}
 			}
 		}
 	}
@@ -167,7 +174,7 @@ public class MapManager : Node
 	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
 	{
 		GD.Print("pos ", pos);
-		if (pos.X < 0 || pos.X > 10 || pos.Y < 0 || pos.Y > 10)
+		if (pos.X < 0 || pos.X > 32 || pos.Y < 0 || pos.Y > 32)
 		{
 			GD.Print("PlaceMachine failed: out of boundaries");
 			return false;
@@ -203,18 +210,22 @@ public class MapManager : Node
 			case TileType.TreadmillUp:
 			case TileType.InputUp:
 			case TileType.OutputDown:
+			case TileType.MachineWasherUp:
 				return Vector2.Up;
 			case TileType.TreadmillRight:
 			case TileType.InputRight:
 			case TileType.OutputLeft:
+			case TileType.MachineWasherRight:
 				return Vector2.Right;
 			case TileType.TreadmillDown:
 			case TileType.InputDown:
 			case TileType.OutputUp:
+			case TileType.MachineWasherDown:
 				return Vector2.Down;
 			case TileType.TreadmillLeft:
 			case TileType.InputLeft:
 			case TileType.OutputRight:
+			case TileType.MachineWasherLeft:
 				return Vector2.Left;
 			case TileType.Jonction: return previousDirection;
 			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
