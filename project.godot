@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 SceneTransition="*res://managers/SceneTransition.tscn"
 MapManager="*res://managers/MapManager.cs"
+CameraManager="*res://managers/CameraManager.cs"
 
 [mono]
 

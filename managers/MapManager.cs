@@ -6,17 +6,19 @@ public class MapManager : Node
     public static float TileSize = 16f;
     public static float Speed = 100f;
     public static ulong TimeBetweenTurnMs = 1000;
-
     public static ulong _lastUpdateTimeMs;
-
 
     private TileMap _tileMap;
     private Node2D _itemsContainer;
     private bool _initialized = false;
 
+    private CameraManager _cameraManager;
 
     public override void _Ready()
     {
+        // Autoloads
+        _cameraManager = (CameraManager)GetNode($"/root/{nameof(CameraManager)}"); // Singleton
+
         _lastUpdateTimeMs = OS.GetSystemTimeMsecs();
     }
 
@@ -32,6 +34,7 @@ public class MapManager : Node
         {
             Tick();
 
+            _cameraManager.AddTrauma(0.3f);
             _lastUpdateTimeMs = _lastUpdateTimeMs + TimeBetweenTurnMs;
         }
     }
