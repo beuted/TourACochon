@@ -4,7 +4,7 @@ using System;
 public class Machine : Node2D
 {
     public TileType Type;
-    public ItemType? Generate;
+    //public ItemType? Generate;
 
     private Node2D _treadmill;
     private Node2D _jonction;
@@ -25,7 +25,7 @@ public class Machine : Node2D
 
         Type = tileType;
 
-        Generate = tileType.ItemGenerated();
+        //Generate = tileType.ItemGenerated();
 
         if (tileType == TileType.TreadmillUp || tileType == TileType.TreadmillRight || tileType == TileType.TreadmillDown || tileType == TileType.TreadmillLeft)
         {
