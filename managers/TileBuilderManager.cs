@@ -27,6 +27,11 @@ public class TileBuilderManager : Node2D
         }
     }
 
+    public void Init(Dictionary<MachineType, int> nbMachineAvailables)
+    {
+        _nbMachineAvailables = nbMachineAvailables;
+    }
+
     public void SelectMachine(MachineType machineType)
     {
         _selectedType = machineType;
@@ -54,7 +59,6 @@ public class TileBuilderManager : Node2D
 
     public void DestroyMachine(MachineType machineType, Vector2i pos)
     {
-
         //TODO: call map manager to destroy the machine
 
         _nbMachineAvailables[machineType]++;

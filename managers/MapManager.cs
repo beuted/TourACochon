@@ -8,6 +8,9 @@ public class MapManager : Node
 	public static float Speed = 100f;
 	public static ulong TimeBetweenTurnMs = 1000;
 	public static ulong _lastUpdateTimeMs;
+	public static int NbLevel = 5;
+
+	private List<Level> _prefabLevels = new List<Level>();
 
 	private Node2D _itemsContainer;
 	private Node2D _tilesContainer;
@@ -19,6 +22,8 @@ public class MapManager : Node
 	private bool _initialized = false;
 
 	private CameraManager _cameraManager;
+	private TileBuilderManager _tileBuilderManager;
+	private GameProgressManager _gameProgressManager;
 
 	public PackedScene _itemScene = ResourceLoader.Load<PackedScene>("res://entities/Item.tscn");
 	public PackedScene _machineScene = ResourceLoader.Load<PackedScene>("res://entities/Machine.tscn");
@@ -27,8 +32,15 @@ public class MapManager : Node
 	{
 		// Autoloads
 		_cameraManager = (CameraManager)GetNode($"/root/{nameof(CameraManager)}"); // Singleton
+		_tileBuilderManager = (TileBuilderManager)GetNode($"/root/{nameof(TileBuilderManager)}"); // Singleton
+		_gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
 
 		_lastUpdateTimeMs = OS.GetSystemTimeMsecs();
+
+		for (var i = 0; i <= NbLevel - 1; i++)
+		{
+			_prefabLevels.Add(ResourceLoader.Load<PackedScene>("res://levels/Level" + i + ".tscn").Instance() as Level);
+		}
 	}
 
 	public override void _Process(float delta)
@@ -55,29 +67,55 @@ public class MapManager : Node
 		_itemsContainer = itemsContainer;
 		_tilesContainer = tilesContainer;
 
+		// Set init to true
 		_initialized = true;
+	}
+
+	public void InitLevel(int levelId)
+	{
+		var levelPrefab = _prefabLevels[levelId];
+
+		// Init the tiles thta will be available
+		_tileBuilderManager.Init(new Dictionary<MachineType, int>(){
+			{ MachineType.Input, 0 },
+			{ MachineType.Output, 0 },
+			{ MachineType.Treadmill, levelPrefab.NbTreadmills },
+			{ MachineType.Jonction, levelPrefab.NbJonctions },
+			{ MachineType.MachineWash, levelPrefab.NbMachineWashs },
+		});
+
+		// Init victory conditions
+		_gameProgressManager.Init(levelPrefab.NbItemToWin, levelPrefab.TypeOfItemToWin);
 
 		// Init _tileDictionary based on _tileMap
-		foreach (var obj in tileMap.GetUsedCells())
+		foreach (var obj in levelPrefab.GetUsedCells())
 		{
 			var cellVect2 = obj as Vector2?;
 			if (!cellVect2.HasValue)
 				continue;
 			var cell = (Vector2i)cellVect2.Value;
 
-			var tileType = (TileType)tileMap.GetCell(cell.X, cell.Y);
+			// We only copy what is within the map
+			if (cell.X < 0 || cell.Y < 0 || cell.X > 11 || cell.Y > 7)
+				continue;
 
-			_tileDictionary[cell] = new Tile(tileType);
+			var offsetedCell = new Vector2i(cell.X, cell.Y); //TODO temporary offset pour voir qqchose
 
+			var tileType = (TileType)levelPrefab.GetCell(offsetedCell.X, offsetedCell.Y);
+
+			_tileDictionary[offsetedCell] = new Tile(tileType);
 
 			// Instanciate a machine to add on the map
 			var newMachine = _machineScene.Instance<Machine>();
-			newMachine.Position = new Vector2(cell.X * TileSize, cell.Y * TileSize);
+			newMachine.Position = new Vector2(offsetedCell.X * TileSize, offsetedCell.Y * TileSize);
 			newMachine.TileType = tileType;
 
 			_tilesContainer.AddChild(newMachine);
-			_machineDictionary[cell] = newMachine;
+			_machineDictionary[offsetedCell] = newMachine;
 		}
+
+		// Set init to true
+		_initialized = true;
 	}
 
 	public void Tick()

@@ -4,11 +4,16 @@ using System;
 public class SceneTransition : CanvasLayer
 {
     private string _path;
+    private GameProgressManager _gameProgressManager;
+
     private AnimationPlayer _animationPlayer;
 
 
     public override void _Ready()
     {
+        // Autoloads
+        _gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
+
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
@@ -24,5 +29,13 @@ public class SceneTransition : CanvasLayer
     {
         if (!string.IsNullOrEmpty(_path))
             GetTree().ChangeScene(_path);
+
+    }
+
+    private void UpdateMapABitAfterChangeScene()
+    {
+        // hacky as fuck
+        if (_path == "Main.tscn")
+            _gameProgressManager.GoToNextLevel();
     }
 }

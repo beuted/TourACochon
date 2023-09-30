@@ -8,6 +8,7 @@ public enum MachineType
   Jonction = 1,
   Output = 2,
   Input = 3,
+  MachineWash = 4,
 }
 
 public static class MachineTypeExtension
