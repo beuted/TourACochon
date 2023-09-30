@@ -8,6 +8,7 @@ public class Item : Node2D
     private Sprite _sprite;
 
     public Vector2 Destination;
+    public Vector2 Direction = Vector2.Zero;
 
     // Called when the node enters the scene tree for the first time.
 

@@ -58,25 +58,30 @@ public class MapManager : Node
             if (cell == -1)
                 continue;
 
-            item.Destination = GetItemNewDestination(cellPosi, cell);
-        }
-    }
+			item.Direction = GetItemNewDirection(cell, item.Direction);
+			item.Destination = GetItemNewDestination(cellPosi, item.Direction);
+		}
+	}
 
-    private Vector2 GetItemNewDestination(Vector2i cellPosi, int cell)
-    {
-        TileType tileType = (TileType)cell;
+	private Vector2 GetItemNewDirection(int cell, Vector2 previousDirection)
+	{
+		TileType tileType = (TileType)cell;
 
-        var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
+		switch (tileType)
+		{
+			case TileType.TreadmillUp: return Vector2.Up;
+			case TileType.TreadmillRight: return Vector2.Right;
+			case TileType.TreadmillDown: return Vector2.Down;
+			case TileType.TreadmillLeft: return Vector2.Left;
+			case TileType.Jonction: return previousDirection;
+			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
+		}
+	}
 
-        switch (tileType)
-        {
-            case TileType.TreadmillUp: return currentPositionCenteredOnCell + new Vector2(0, -TileSize);
-            case TileType.TreadmillRight: return currentPositionCenteredOnCell + new Vector2(TileSize, 0);
-            case TileType.TreadmillDown: return currentPositionCenteredOnCell + new Vector2(0, TileSize);
-            case TileType.TreadmillLeft: return currentPositionCenteredOnCell + new Vector2(-TileSize, 0);
-            case TileType.Jonction: return currentPositionCenteredOnCell; //TODO
-            default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
-        }
-    }
+	private Vector2 GetItemNewDestination(Vector2i cellPosi, Vector2 direction)
+	{
+		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
 
+		return currentPositionCenteredOnCell + (direction * TileSize);
+	}
 }
