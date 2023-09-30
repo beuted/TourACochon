@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MapManager : Node
 {
-    public static float TileSize = 16f;
+    public static float TileSize = 32f;
     public static float Speed = 100f;
     public static ulong TimeBetweenTurnMs = 1000;
     public static ulong _lastUpdateTimeMs;
@@ -49,7 +49,7 @@ public class MapManager : Node
         _itemsContainer = itemsContainer;
         _initialized = true;
 
-        // Init _cellmap based on _tileMap
+        // Init _tileDictionary based on _tileMap
         foreach (var obj in _tileMap.GetUsedCells())
         {
 			var cellVect2 = obj as Vector2?;
@@ -123,7 +123,7 @@ public class MapManager : Node
 
     private Vector2 GetItemNewDestination(Vector2i cellPosi, Vector2 direction)
     {
-		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * TileSize + TileSize / 2, cellPosi.Y * TileSize + TileSize / 2);
+        var currentPositionCenteredOnCell = new Vector2(cellPosi.X * TileSize + TileSize / 2, cellPosi.Y * TileSize + TileSize / 2);
 
         return currentPositionCenteredOnCell + (direction * TileSize);
     }
