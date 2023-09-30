@@ -9,10 +9,12 @@ public class Machine : Node2D
     private Node2D _jonction;
     private Node2D _input;
     private Node2D _output;
+    private Node2D _washingMaching;
 
     public override void _Ready()
     {
         _treadmill = GetNode<Node2D>("Treadmill");
+        _washingMaching = GetNode<Node2D>("MachineWasher");
         _jonction = GetNode<Node2D>("Jonction");
         _input = GetNode<Node2D>("Input");
         _output = GetNode<Node2D>("Output");
@@ -21,6 +23,7 @@ public class Machine : Node2D
         _jonction.Visible = false;
         _input.Visible = false;
         _output.Visible = false;
+        _washingMaching.Visible = false;
 
         if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
         {
@@ -59,6 +62,18 @@ public class Machine : Node2D
                 case TileType.OutputRight: _output.RotationDegrees = 0; break;
                 case TileType.OutputDown: _output.RotationDegrees = 90; break;
                 case TileType.OutputLeft: _output.RotationDegrees = 180; break;
+            }
+        }
+        else if (TileType == TileType.MachineWasherRight || TileType == TileType.MachineWasherDown || TileType == TileType.MachineWasherLeft || TileType == TileType.MachineWasherUp)
+        {
+            _washingMaching.Visible = true;
+
+            switch (TileType)
+            {
+                case TileType.MachineWasherUp: _washingMaching.RotationDegrees = 270; break;
+                case TileType.MachineWasherRight: _washingMaching.RotationDegrees = 0; break;
+                case TileType.MachineWasherDown: _washingMaching.RotationDegrees = 90; break;
+                case TileType.MachineWasherLeft: _washingMaching.RotationDegrees = 180; break;
             }
         }
 
