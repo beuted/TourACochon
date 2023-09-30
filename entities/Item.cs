@@ -3,7 +3,7 @@ using System;
 
 public class Item : Node2D
 {
-    public ItemType Type = ItemType.CochonSale;
+    public PigPerks Perks = PigPerks.None;
 
     private Sprite _sprite;
 
@@ -16,7 +16,7 @@ public class Item : Node2D
     {
         _sprite = GetNode<Sprite>("Sprite");
 
-        _sprite.Frame = (int)Type;
+        _sprite.Frame = 0;
 
         Destination = Position;
     }

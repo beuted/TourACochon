@@ -18,7 +18,7 @@ public enum TileType
 
 public static class TileTypeExtension
 {
-  public static ItemType? ItemGenerated(this TileType tileType)
+  public static bool ProducesWithoutInput(this TileType tileType)
   {
     switch (tileType)
     {
@@ -26,8 +26,21 @@ public static class TileTypeExtension
       case TileType.InputRight:
       case TileType.InputDown:
       case TileType.InputLeft:
-        return ItemType.CochonSale;
-      default: return null;
+        return true;
+      default: return false;
+    }
+  }
+
+  public static bool Consumes(this TileType tileType)
+  {
+    switch (tileType)
+    {
+      case TileType.OutputUp:
+      case TileType.OutputRight:
+      case TileType.OutputDown:
+      case TileType.OutputLeft:
+        return true;
+      default: return false;
     }
   }
 }
