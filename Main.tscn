@@ -16,6 +16,11 @@ current = true
 
 [node name="Background" type="Sprite" parent="."]
 
+[node name="Background2" type="Sprite" parent="."]
+position = Vector2( 512, 300 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
@@ -26,12 +31,6 @@ script = ExtResource( 7 )
 [node name="VisualTiles" type="Node2D" parent="."]
 
 [node name="ItemsContainer" type="Node2D" parent="."]
-
-[node name="Background2" type="Sprite" parent="."]
-position = Vector2( 512, 300 )
-scale = Vector2( 2, 2 )
-z_index = -1000
-texture = ExtResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
