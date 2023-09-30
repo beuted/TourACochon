@@ -21,6 +21,11 @@ MapManager="*res://managers/MapManager.cs"
 CameraManager="*res://managers/CameraManager.cs"
 SoundManager="*res://managers/SoundManager.tscn"
 
+[display]
+
+window/size/width=960
+window/size/height=540
+
 [mono]
 
 project/assembly_name="TourACochon"
