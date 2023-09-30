@@ -43,10 +43,10 @@ public class Machine : Node2D
 
             switch (TileType)
             {
-                case TileType.TreadmillUp: _input.RotationDegrees = 270; break;
-                case TileType.TreadmillRight: _input.RotationDegrees = 0; break;
-                case TileType.TreadmillDown: _input.RotationDegrees = 90; break;
-                case TileType.TreadmillLeft: _input.RotationDegrees = 180; break;
+                case TileType.InputUp: _input.RotationDegrees = 270; break;
+                case TileType.InputRight: _input.RotationDegrees = 0; break;
+                case TileType.InputDown: _input.RotationDegrees = 90; break;
+                case TileType.InputLeft: _input.RotationDegrees = 180; break;
             }
         }
         else if (TileType == TileType.OutputRight || TileType == TileType.OutputDown || TileType == TileType.OutputLeft || TileType == TileType.OutputUp)
