@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class MapManager : Node
 {
@@ -9,10 +10,13 @@ public class MapManager : Node
     public static ulong _lastUpdateTimeMs;
 
     private TileMap _tileMap;
+    private Dictionary<Vector2i, Tile> _tileDictionary = new Dictionary<Vector2i, Tile>(); // This structure has been added to hold more info than the simple tileMap. It's initiated with it
     private Node2D _itemsContainer;
     private bool _initialized = false;
 
     private CameraManager _cameraManager;
+
+    public PackedScene _itemScene = ResourceLoader.Load<PackedScene>("res://entities/Item.tscn");
 
     public override void _Ready()
     {
@@ -44,10 +48,26 @@ public class MapManager : Node
         _tileMap = tileMap;
         _itemsContainer = itemsContainer;
         _initialized = true;
+
+        // Init _cellmap based on _tileMap
+        foreach (var obj in _tileMap.GetUsedCells())
+        {
+            var cell = obj as Vector2?;
+            if (!cell.HasValue)
+                continue;
+
+            var tileType = (TileType)_tileMap.GetCell((int)cell.Value.x, (int)cell.Value.y);
+            _tileDictionary[new Vector2i((int)cell.Value.x, (int)cell.Value.y)] = new Tile()
+            {
+                Type = tileType,
+                Generate = tileType.ItemGenerated()
+            };
+        }
     }
 
     public void Tick()
     {
+        // Setup new Destinationf or each items
         foreach (var obj in _itemsContainer.GetChildren())
         {
             var item = obj as Item;
@@ -58,30 +78,52 @@ public class MapManager : Node
             if (cell == -1)
                 continue;
 
-			item.Direction = GetItemNewDirection(cell, item.Direction);
-			item.Destination = GetItemNewDestination(cellPosi, item.Direction);
-		}
-	}
+            item.Direction = GetItemNewDirection(cell, item.Direction);
+            item.Destination = GetItemNewDestination(cellPosi, item.Direction);
+        }
 
-	private Vector2 GetItemNewDirection(int cell, Vector2 previousDirection)
-	{
-		TileType tileType = (TileType)cell;
+        // Create items out of inputs tiles
+        foreach (var posTile in _tileDictionary.Keys)
+        {
+            var tile = _tileDictionary[posTile];
+            if (!tile.Generate.HasValue)
+                continue;
 
-		switch (tileType)
-		{
-			case TileType.TreadmillUp: return Vector2.Up;
-			case TileType.TreadmillRight: return Vector2.Right;
-			case TileType.TreadmillDown: return Vector2.Down;
-			case TileType.TreadmillLeft: return Vector2.Left;
-			case TileType.Jonction: return previousDirection;
-			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
-		}
-	}
+            var newItem = _itemScene.Instance<Item>();
+            newItem.Type = tile.Generate.Value;
+            newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
 
-	private Vector2 GetItemNewDestination(Vector2i cellPosi, Vector2 direction)
-	{
-		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
+            _itemsContainer.AddChild(newItem);
+        }
+    }
 
-		return currentPositionCenteredOnCell + (direction * TileSize);
-	}
+    private Vector2 GetItemNewDirection(int cell, Vector2 previousDirection)
+    {
+        TileType tileType = (TileType)cell;
+
+        switch (tileType)
+        {
+            case TileType.TreadmillUp:
+            case TileType.InputUp:
+                return Vector2.Up;
+            case TileType.TreadmillRight:
+            case TileType.InputRight:
+                return Vector2.Right;
+            case TileType.TreadmillDown:
+            case TileType.InputDown:
+                return Vector2.Down;
+            case TileType.TreadmillLeft:
+            case TileType.InputLeft:
+                return Vector2.Left;
+            case TileType.Jonction: return previousDirection;
+            default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
+        }
+    }
+
+    private Vector2 GetItemNewDestination(Vector2i cellPosi, Vector2 direction)
+    {
+        var currentPositionCenteredOnCell = new Vector2(cellPosi.X * 16f + 8f, cellPosi.Y * 16f + 8f);
+
+        return currentPositionCenteredOnCell + (direction * TileSize);
+    }
 }

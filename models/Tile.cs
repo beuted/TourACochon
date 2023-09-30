@@ -3,5 +3,6 @@ using System;
 
 public class Tile
 {
-    TileType Type;
+    public TileType Type;
+    public ItemType? Generate;
 }

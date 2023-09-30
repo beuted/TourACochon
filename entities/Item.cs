@@ -3,7 +3,7 @@ using System;
 
 public class Item : Node2D
 {
-    ItemType Type = ItemType.CochonSale;
+    public ItemType Type = ItemType.CochonSale;
 
     private Sprite _sprite;
 
