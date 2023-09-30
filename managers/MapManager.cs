@@ -52,13 +52,14 @@ public class MapManager : Node
         // Init _cellmap based on _tileMap
         foreach (var obj in _tileMap.GetUsedCells())
         {
-            var cell = obj as Vector2?;
-            if (!cell.HasValue)
-                continue;
+			var cellVect2 = obj as Vector2?;
+			if (!cellVect2.HasValue)
+				continue;
+			var cell = (Vector2i)cellVect2.Value;
 
-            var tileType = (TileType)_tileMap.GetCell((int)cell.Value.x, (int)cell.Value.y);
-            _tileDictionary[new Vector2i((int)cell.Value.x, (int)cell.Value.y)] = new Tile()
-            {
+			var tileType = (TileType)_tileMap.GetCell(cell.X, cell.Y);
+			_tileDictionary[cell] = new Tile()
+			{
                 Type = tileType,
                 Generate = tileType.ItemGenerated()
             };
@@ -72,10 +73,10 @@ public class MapManager : Node
         {
             var item = obj as Item;
 
-            var cellPosi = new Vector2i((int)(item.Position.x / TileSize), (int)(item.Position.y / TileSize));
-            var cell = _tileMap.GetCell(cellPosi.X, cellPosi.Y);
+			Vector2i cellPosi = item.Position / TileSize;
+			var cell = _tileMap.GetCell(cellPosi.X, cellPosi.Y);
 
-            if (cell == -1)
+			if (cell == -1)
                 continue;
 
             item.Direction = GetItemNewDirection(cell, item.Direction);

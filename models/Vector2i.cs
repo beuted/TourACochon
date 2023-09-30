@@ -16,6 +16,9 @@ public class Vector2i : Godot.Object, IEquatable<Vector2i>
   public static Vector2i operator +(Vector2i v1, Vector2i v2) => new Vector2i(v1.X + v2.X, v1.Y + v2.Y);
   public static Vector2i operator -(Vector2i v1, Vector2i v2) => new Vector2i(v1.X - v2.X, v1.Y - v2.Y);
 
+  public static implicit operator Vector2(Vector2i v) => new Vector2(v.X, v.Y);
+  public static implicit operator Vector2i(Vector2 v) => new Vector2i((int)v.x, (int)v.y);
+
 
   public static Vector2i Zero = new Vector2i(0, 0);
   public static Vector2i Up = new Vector2i(0, -1);
@@ -48,13 +51,5 @@ public class Vector2i : Godot.Object, IEquatable<Vector2i>
   public bool Equals(Vector2i obj)
   {
     return obj != null && obj.X == this.X && obj.Y == this.Y;
-  }
-}
-
-public static class Vector2iExtensions
-{
-  public static Vector2 ToVector2(this Vector2i v)
-  {
-    return new Vector2((float)v.X, (float)v.Y);
   }
 }
