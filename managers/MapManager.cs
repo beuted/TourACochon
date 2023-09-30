@@ -81,7 +81,7 @@ public class MapManager : Node
 			{ MachineType.Output, 0 },
 			{ MachineType.Treadmill, levelPrefab.NbTreadmills },
 			{ MachineType.Jonction, levelPrefab.NbJonctions },
-			{ MachineType.MachineWash, levelPrefab.NbMachineWashs },
+			{ MachineType.MachineWasher, levelPrefab.NbMachineWashs },
 		});
 
 		// Init victory conditions
@@ -209,6 +209,46 @@ public class MapManager : Node
 		}
 	}
 
+	public bool TryGetTileType(Vector2i pos, out TileType type)
+	{
+		if (!_tileDictionary.TryGetValue(pos, out var tile))
+		{
+			type = default;
+			return false;
+		}
+
+		type = tile.Type;
+		return true;
+	}
+
+	public void RotateMachine(Vector2i pos)
+	{
+		if (!_machineDictionary.TryGetValue(pos, out var machine))
+		{
+			GD.Print("RotateMachine failed: no machine at this position");
+			return;
+		}
+
+		TileType newTileType;
+		switch (machine.TileType)
+		{
+			case TileType.TreadmillUp: newTileType = TileType.TreadmillRight; break;
+			case TileType.TreadmillRight: newTileType = TileType.TreadmillDown; break;
+			case TileType.TreadmillDown: newTileType = TileType.TreadmillLeft; break;
+			case TileType.TreadmillLeft: newTileType = TileType.TreadmillUp; break;
+			case TileType.MachineWasherUp: newTileType = TileType.MachineWasherRight; break;
+			case TileType.MachineWasherRight: newTileType = TileType.MachineWasherDown; break;
+			case TileType.MachineWasherDown: newTileType = TileType.MachineWasherLeft; break;
+			case TileType.MachineWasherLeft: newTileType = TileType.MachineWasherUp; break;
+			default:
+				// No rotation for this machine
+				return;
+		}
+
+		machine.TileType = newTileType;
+		_tileDictionary[pos].Type = newTileType;
+	}
+
 	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
 	{
 		GD.Print("pos ", pos);
@@ -239,6 +279,25 @@ public class MapManager : Node
 		_machineDictionary[pos] = newMachine;
 
 		return true; // sucess
+	}
+
+	public bool DestroyMachine(Vector2i pos)
+	{
+		if (!_tileDictionary.TryGetValue(pos, out var tile))
+		{
+			GD.Print("Destroy failed: no tile there");
+			return false;
+		}
+
+		GD.Print("DeleteMachine ", pos);
+		_tileDictionary.Remove(pos);
+
+
+		var machine = _machineDictionary[pos];
+		_machineDictionary.Remove(pos);
+		machine.QueueFree();
+
+		return true;
 	}
 
 	private Vector2 GetItemNewDirection(TileType tileType, Vector2 previousDirection)

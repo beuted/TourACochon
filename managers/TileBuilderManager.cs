@@ -57,9 +57,19 @@ public class TileBuilderManager : Node2D
         EmitSignal(nameof(nb_machine_changed), _selectedType.Value, _nbMachineAvailables[_selectedType.Value]);
     }
 
-    public void DestroyMachine(MachineType machineType, Vector2i pos)
+    public void DestroyMachine(Vector2i pos)
     {
-        //TODO: call map manager to destroy the machine
+        if (!_mapManager.TryGetTileType(pos, out var tileType))
+        {
+            GD.Print("DestroyMachine failed: no machine at this position");
+            return;
+        }
+
+        var machineType = tileType.GetMachineType();
+        var sucess = _mapManager.DestroyMachine(pos);
+
+        if (!sucess)
+            return;
 
         _nbMachineAvailables[machineType]++;
 

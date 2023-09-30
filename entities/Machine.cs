@@ -3,13 +3,22 @@ using System;
 
 public class Machine : Node2D
 {
-    public TileType TileType;
+    public TileType TileType
+    {
+        get => _tileType;
+        set
+        {
+            _tileType = value;
+            OnTileTypeChanged();
+        }
+    }
 
     private Node2D _treadmill;
     private Node2D _jonction;
     private Node2D _input;
     private Node2D _output;
     private Node2D _washingMaching;
+    private TileType _tileType;
 
     public override void _Ready()
     {
@@ -24,6 +33,17 @@ public class Machine : Node2D
         _input.Visible = false;
         _output.Visible = false;
         _washingMaching.Visible = false;
+
+        OnTileTypeChanged();
+    }
+
+    private void OnTileTypeChanged()
+    {
+        if (_treadmill == null)
+        {
+            // Not properly initialized yet
+            return;
+        }
 
         if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
         {
@@ -76,6 +96,5 @@ public class Machine : Node2D
                 case TileType.MachineWasherLeft: _washingMaching.RotationDegrees = 180; break;
             }
         }
-
     }
 }

@@ -8,7 +8,7 @@ public enum MachineType
   Jonction = 1,
   Output = 2,
   Input = 3,
-  MachineWash = 4,
+  MachineWasher = 4,
 }
 
 public static class MachineTypeExtension
@@ -56,6 +56,19 @@ public static class MachineTypeExtension
             return TileType.OutputLeft;
           case Direction.Up:
             return TileType.OutputUp;
+          default: throw new Exception("GetTileType unknown");
+        }
+      case MachineType.MachineWasher:
+        switch (direction)
+        {
+          case Direction.Right:
+            return TileType.MachineWasherRight;
+          case Direction.Down:
+            return TileType.MachineWasherDown;
+          case Direction.Left:
+            return TileType.MachineWasherLeft;
+          case Direction.Up:
+            return TileType.MachineWasherUp;
           default: throw new Exception("GetTileType unknown");
         }
       default: throw new Exception("GetTileType unknown");

@@ -1,4 +1,5 @@
 // Doit respecter l'ordre de définition des tiles du tileset
+using System;
 using System.Collections.Generic;
 
 public enum TileType
@@ -69,6 +70,36 @@ public static class TileTypeExtension
           },
         };
       default: return null;
+    }
+  }
+
+  public static MachineType GetMachineType(this TileType machineType)
+  {
+    switch (machineType)
+    {
+      case TileType.Jonction:
+        return MachineType.Jonction;
+      case TileType.TreadmillRight:
+      case TileType.TreadmillDown:
+      case TileType.TreadmillLeft:
+      case TileType.TreadmillUp:
+        return MachineType.Treadmill;
+      case TileType.InputRight:
+      case TileType.InputDown:
+      case TileType.InputLeft:
+      case TileType.InputUp:
+        return MachineType.Input;
+      case TileType.OutputRight:
+      case TileType.OutputDown:
+      case TileType.OutputLeft:
+      case TileType.OutputUp:
+        return MachineType.Output;
+      case TileType.MachineWasherRight:
+      case TileType.MachineWasherDown:
+      case TileType.MachineWasherLeft:
+      case TileType.MachineWasherUp:
+        return MachineType.MachineWasher;
+      default: throw new Exception("GetMachineType unknown");
     }
   }
 }
