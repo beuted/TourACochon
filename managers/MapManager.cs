@@ -148,6 +148,27 @@ public class MapManager : Node
 		}
 	}
 
+	public bool PlaceMachine(Vector2i pos, MachineType type)
+	{
+		if (pos.X < 0 || pos.X > 10 || pos.Y < 0 || pos.Y > 10)
+		{
+			GD.Print("PlaceMachine failed: out of boundaries");
+			return false;
+		}
+
+		if (_tileDictionary.TryGetValue(pos, out var tile))
+		{
+			GD.Print("PlaceMachine failed: already a tile there");
+			return false;
+		}
+
+
+		//TODO set the tile (_tileDictionary[pos] =  ...)
+		GD.Print("PlaceMachine ", pos, ", ", type);
+
+		return true; // sucess
+	}
+
 	private Vector2 GetItemNewDirection(TileType tileType, Vector2 previousDirection)
 	{
 		switch (tileType)

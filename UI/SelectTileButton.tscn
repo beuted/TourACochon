@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/graphics/tile-buttons.png" type="Texture" id=1]
+[ext_resource path="res://UI/SelectTileButton.cs" type="Script" id=2]
+
+[node name="SelectTileButton" type="Button"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 8
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 67.0
+margin_bottom = 67.0
+
+[node name="Nb" type="Label" parent="."]
+margin_left = 35.0
+margin_top = -5.0
+margin_right = 69.0
+margin_bottom = 29.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_as_outline = 2
+text = "(3)"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="." to="." method="OnClick"]

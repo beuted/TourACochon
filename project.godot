@@ -20,6 +20,7 @@ SceneTransition="*res://managers/SceneTransition.tscn"
 MapManager="*res://managers/MapManager.cs"
 CameraManager="*res://managers/CameraManager.cs"
 SoundManager="*res://managers/SoundManager.tscn"
+TileBuilderManager="*res://managers/TileBuilderManager.cs"
 
 [display]
 
