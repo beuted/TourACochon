@@ -9,23 +9,30 @@ public class MapManager : Node
 
     private TileMap _tileMap;
     private Node2D _itemsContainer;
+	private bool _initialized = false;
 
 
-    public override void _Ready()
+	public override void _Ready()
     {
 
     }
 
     public override void _Process(float delta)
     {
-        Tick(delta);
+		if (!_initialized)
+		{
+			return;
+		}
+
+		Tick(delta);
     }
 
     public void Init(TileMap tileMap, Node2D itemsContainer)
     {
         _tileMap = tileMap;
         _itemsContainer = itemsContainer;
-    }
+		_initialized = true;
+	}
 
     public void Tick(float delta)
     {
