@@ -52,6 +52,7 @@ visible = false
 position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="Input"]
+z_index = 50
 texture = ExtResource( 3 )
 hframes = 10
 vframes = 40
@@ -62,6 +63,7 @@ visible = false
 position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="Output"]
+z_index = 50
 texture = ExtResource( 3 )
 hframes = 10
 vframes = 40
@@ -72,6 +74,7 @@ visible = false
 position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="MachineWasher"]
+z_index = 50
 texture = ExtResource( 3 )
 hframes = 10
 vframes = 40
