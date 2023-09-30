@@ -51,13 +51,10 @@ margin_top = -64.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AvailableTiles"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -255.0
-margin_top = -45.0
-margin_right = 255.0
-margin_bottom = 19.0
+anchor_bottom = 1.0
+margin_left = -150.5
+margin_right = 150.5
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
@@ -79,3 +76,8 @@ MachineType = 2
 margin_left = 237.0
 margin_right = 301.0
 MachineType = 3
+
+[node name="SelectTileButton5" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 316.0
+margin_right = 380.0
+MachineType = 4

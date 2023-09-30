@@ -27,8 +27,9 @@ public class GameProgressManager : Node2D
     TypeOfItemToWin = typeOfItemToWin;
   }
 
-  public void CheckIfWon()
+  public void IncrNbItemGathered()
   {
+    NbItemGathered++;
     if (NbItemGathered >= NbItemToWin)
       _sceneTransition.FadeTo("BetweenLevel.tscn");
   }

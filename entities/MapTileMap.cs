@@ -17,7 +17,7 @@ public class MapTileMap : TileMap
     {
         if (evt is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed)
         {
-            Vector2i tilePos = WorldToMap(GetGlobalMousePosition());
+            Vector2i tilePos = WorldToMap(GetGlobalMousePosition()) * 0.5f;
 
             if (eventMouseButton.ButtonIndex == (int)ButtonList.Left)
             {
@@ -32,7 +32,6 @@ public class MapTileMap : TileMap
             }
             else if (eventMouseButton.ButtonIndex == (int)ButtonList.Right)
             {
-                GD.Print("Trying to delete");
                 _tileBuilderManager.DestroyMachine(tilePos);
             }
         }

@@ -192,6 +192,12 @@ public class MapManager : Node
 				foreach (var recipePerk in tile.Recipe.Input)
 				{
 					tile.Inputs[recipePerk.Key] -= recipePerk.Value;
+
+					if (tile.Type.GetMachineType() == MachineType.Output)
+					{
+						_gameProgressManager.IncrNbItemGathered();
+					}
+
 					if (tile.Inputs[recipePerk.Key] == 0)
 					{
 						tile.Inputs.Remove(recipePerk.Key);
@@ -263,9 +269,6 @@ public class MapManager : Node
 			GD.Print("PlaceMachine failed: already a tile there");
 			return false;
 		}
-
-		//TODO set the tile (_tileDictionary[pos] =  ...)
-		GD.Print("PlaceMachine ", pos, ", ", machineType);
 
 		var tileType = machineType.GetTileType(direction);
 		_tileDictionary[pos] = new Tile(tileType);
