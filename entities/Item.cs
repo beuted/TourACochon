@@ -11,23 +11,31 @@ public class Item : Node2D
 
     public override void _Ready()
     {
+        var cochonDirty = GetNode<AnimatedSprite>("Cochon_Dirty");
+        var cochonClean = GetNode<AnimatedSprite>("Cochon_Clean");
+        var cochonFat = GetNode<AnimatedSprite>("Cochon_Fat");
+
+        cochonDirty.Visible = false;
+        cochonClean.Visible = false;
+        cochonFat.Visible = false;
+
         switch (Perks)
         {
             case PigPerks.None:
-                GetNode<AnimatedSprite>("Cochon_Dirty").Visible = true;
+                cochonDirty.Visible = true;
                 break;
             case PigPerks.Cleaned:
-                GetNode<AnimatedSprite>("Cochon_Clean").Visible = true;
+                cochonClean.Visible = true;
                 break;
             case PigPerks.Fat:
-                GetNode<AnimatedSprite>("Cochon_Fat").Visible = true;
+                cochonFat.Visible = true;
                 break;
             default:
-                GetNode<AnimatedSprite>("Cochon_Clean").Visible = true;
+                cochonClean.Visible = true;
                 break;
         }
         Destination = Position;
-    }   
+    }
 
     public override void _Process(float delta)
     {

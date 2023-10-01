@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/Machine.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/conveyor.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/graphics/decor_tileset.png" type="Texture" id=4]
 [ext_resource path="res://assets/graphics/conveyor-up.png" type="Texture" id=5]
 [ext_resource path="res://assets/graphics/conveyor-down.png" type="Texture" id=6]
+[ext_resource path="res://assets/graphics/machines/wash-machine.png" type="Texture" id=7]
+[ext_resource path="res://assets/graphics/machines/feeding-machine.png" type="Texture" id=8]
 
 [node name="Machine" type="Node2D"]
 script = ExtResource( 1 )
@@ -71,14 +73,13 @@ frame = 131
 
 [node name="MachineWasher" type="Node2D" parent="."]
 visible = false
-position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="MachineWasher"]
+position = Vector2( 0, -14 )
 z_index = 50
-texture = ExtResource( 3 )
-hframes = 10
-vframes = 40
-frame = 150
+texture = ExtResource( 7 )
+centered = false
+hframes = 4
 
 [node name="Brick" type="Node2D" parent="."]
 visible = false
@@ -91,12 +92,10 @@ vframes = 15
 frame = 1
 
 [node name="MachineFeeder" type="Node2D" parent="."]
-visible = false
-position = Vector2( 16, 16 )
 
 [node name="Sprite" type="Sprite" parent="MachineFeeder"]
+position = Vector2( 0, -14 )
 z_index = 50
-texture = ExtResource( 3 )
-hframes = 10
-vframes = 40
-frame = 154
+texture = ExtResource( 8 )
+centered = false
+hframes = 4

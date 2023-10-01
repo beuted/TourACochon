@@ -24,6 +24,8 @@ public class Machine : Node2D
     private Sprite _treadmillSprite;
     private Sprite _treadmillUpSprite;
     private Sprite _treadmillDownSprite;
+    private Sprite _washingMachingSprite;
+    private Sprite _feedingMachingSprite;
     private Node2D _washingMaching;
     private Node2D _feedingMachine;
     private Node2D _brick;
@@ -44,6 +46,8 @@ public class Machine : Node2D
         _treadmillSprite = GetNode<Sprite>("Treadmill/Sprite");
         _treadmillUpSprite = GetNode<Sprite>("TreadmillUp/Sprite");
         _treadmillDownSprite = GetNode<Sprite>("TreadmillDown/Sprite");
+        _washingMachingSprite = GetNode<Sprite>("MachineWasher/Sprite");
+        _feedingMachingSprite = GetNode<Sprite>("MachineFeeder/Sprite");
 
         OnTileTypeChanged();
     }
@@ -129,10 +133,10 @@ public class Machine : Node2D
 
             switch (TileType)
             {
-                case TileType.MachineWasherUp: _washingMaching.RotationDegrees = 270; break;
-                case TileType.MachineWasherRight: _washingMaching.RotationDegrees = 0; break;
-                case TileType.MachineWasherDown: _washingMaching.RotationDegrees = 90; break;
-                case TileType.MachineWasherLeft: _washingMaching.RotationDegrees = 180; break;
+                case TileType.MachineWasherUp: _washingMachingSprite.Frame = 3; break;
+                case TileType.MachineWasherRight: _washingMachingSprite.Frame = 1; break;
+                case TileType.MachineWasherDown: _washingMachingSprite.Frame = 0; break;
+                case TileType.MachineWasherLeft: _washingMachingSprite.Frame = 2; break;
             }
         }
         else if (TileType == TileType.MachineFeederRight || TileType == TileType.MachineFeederDown || TileType == TileType.MachineFeederLeft || TileType == TileType.MachineFeederUp)
@@ -141,10 +145,10 @@ public class Machine : Node2D
 
             switch (TileType)
             {
-                case TileType.MachineFeederUp: _feedingMachine.RotationDegrees = 270; break;
-                case TileType.MachineFeederRight: _feedingMachine.RotationDegrees = 0; break;
-                case TileType.MachineFeederDown: _feedingMachine.RotationDegrees = 90; break;
-                case TileType.MachineFeederLeft: _feedingMachine.RotationDegrees = 180; break;
+                case TileType.MachineFeederUp: _feedingMachingSprite.Frame = 3; break;
+                case TileType.MachineFeederRight: _feedingMachingSprite.Frame = 1; break;
+                case TileType.MachineFeederDown: _feedingMachingSprite.Frame = 0; break;
+                case TileType.MachineFeederLeft: _feedingMachingSprite.Frame = 2; break;
             }
         }
         else if (TileType == TileType.Brick)
@@ -165,5 +169,6 @@ public class Machine : Node2D
         _input.Visible = false;
         _output.Visible = false;
         _washingMaching.Visible = false;
+        _feedingMachine.Visible = false;
     }
 }
