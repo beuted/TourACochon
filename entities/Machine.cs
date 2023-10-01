@@ -13,6 +13,19 @@ public class Machine : Node2D
             OnTileTypeChanged();
         }
     }
+    private TileType _tileType;
+
+    public PigPerks ItemProduced
+    {
+        get => _itemProduced;
+        set
+        {
+            _itemProduced = value;
+            OnTileTypeChanged();
+        }
+    }
+    private PigPerks _itemProduced;
+
     public bool IsCreatedByUser;
 
     private Node2D _treadmill;
@@ -26,10 +39,11 @@ public class Machine : Node2D
     private Sprite _treadmillDownSprite;
     private Sprite _washingMachingSprite;
     private Sprite _feedingMachingSprite;
+    private Item _inputItem;
+    private Item _outputItem;
     private Node2D _washingMaching;
     private Node2D _feedingMachine;
     private Node2D _brick;
-    private TileType _tileType;
 
     public override void _Ready()
     {
@@ -48,6 +62,9 @@ public class Machine : Node2D
         _treadmillDownSprite = GetNode<Sprite>("TreadmillDown/Sprite");
         _washingMachingSprite = GetNode<Sprite>("MachineWasher/Sprite");
         _feedingMachingSprite = GetNode<Sprite>("MachineFeeder/Sprite");
+
+        _inputItem = GetNode<Item>("Input/Item");
+        _outputItem = GetNode<Item>("Output/Item");
 
         OnTileTypeChanged();
     }
@@ -105,10 +122,14 @@ public class Machine : Node2D
         }
         else if (TileType == TileType.InputUp || TileType == TileType.InputRight || TileType == TileType.InputDown || TileType == TileType.InputLeft)
         {
+            _inputItem.Perks = ItemProduced;
+            _inputItem.VisualUpdate();
             _input.Visible = true;
         }
         else if (TileType == TileType.OutputRight || TileType == TileType.OutputDown || TileType == TileType.OutputLeft || TileType == TileType.OutputUp)
         {
+            _outputItem.Perks = ItemProduced;
+            _outputItem.VisualUpdate();
             _output.Visible = true;
         }
         else if (TileType == TileType.MachineWasherRight || TileType == TileType.MachineWasherDown || TileType == TileType.MachineWasherLeft || TileType == TileType.MachineWasherUp)
@@ -139,9 +160,6 @@ public class Machine : Node2D
         {
             _brick.Visible = true;
         }
-
-        GD.Print(_treadmillSprite.FlipH, ", ", _treadmill.Visible);
-
     }
 
     private void ResetVisibility()

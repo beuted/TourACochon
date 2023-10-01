@@ -52,10 +52,10 @@ animations = [ {
 script = ExtResource( 1 )
 
 [node name="Cochon_Dirty" type="AnimatedSprite" parent="."]
-visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "dirty"
+frame = 1
 playing = true
 
 [node name="Cochon_Clean" type="AnimatedSprite" parent="."]
@@ -63,6 +63,7 @@ visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "clean"
+frame = 1
 playing = true
 
 [node name="Cochon_Fat" type="AnimatedSprite" parent="."]
@@ -70,7 +71,6 @@ visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "fat"
-frame = 1
 playing = true
 
 [node name="PigFood" type="Sprite" parent="."]

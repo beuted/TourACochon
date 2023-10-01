@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/Machine.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/conveyor.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/graphics/machines/feeding-machine.png" type="Texture" id=8]
 [ext_resource path="res://assets/graphics/machines/inputs.png" type="Texture" id=9]
 [ext_resource path="res://assets/graphics/machines/outputs.png" type="Texture" id=10]
+[ext_resource path="res://entities/Item.tscn" type="PackedScene" id=11]
 
 [node name="Machine" type="Node2D"]
 script = ExtResource( 1 )
@@ -51,7 +52,6 @@ offset = Vector2( 0, -3 )
 hframes = 8
 
 [node name="Input" type="Node2D" parent="."]
-visible = false
 
 [node name="Sprite" type="Sprite" parent="Input"]
 position = Vector2( 0, -8 )
@@ -60,7 +60,12 @@ texture = ExtResource( 9 )
 centered = false
 hframes = 4
 
+[node name="Item" parent="Input" instance=ExtResource( 11 )]
+position = Vector2( 9, 0 )
+z_index = 50
+
 [node name="Output" type="Node2D" parent="."]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="Output"]
 position = Vector2( 0, -8 )
@@ -68,6 +73,10 @@ z_index = 50
 texture = ExtResource( 10 )
 centered = false
 hframes = 4
+
+[node name="Item" parent="Output" instance=ExtResource( 11 )]
+position = Vector2( 28, 3 )
+z_index = 50
 
 [node name="MachineWasher" type="Node2D" parent="."]
 visible = false

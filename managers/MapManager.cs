@@ -118,22 +118,25 @@ public class MapManager : Node
 				if (!foundInput1)
 				{
 					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput1
+						levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1
 					};
+					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput1;
 					foundInput1 = true;
 				}
 				else if (!foundInput2)
 				{
 					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput2
+						levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2
 					};
+					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput2;
 					foundInput2 = true;
 				}
 				else if (!foundInput3)
 				{
 					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput3
+						levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3
 					};
+					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput3;
 					foundInput3 = true;
 				}
 			}
@@ -196,8 +199,10 @@ public class MapManager : Node
 				// Semi-Hack: we set the recipe of the output depending on the level here
 				_tileDictionary[offsetedCell].Recipe.Input = new Dictionary<PigPerks, int>()
 				{
-					[levelPrefab.TypeOfItemToWin] = 1,
+					[levelPrefab.TypeOfItemToWin] = 3,
 				};
+
+
 			}
 
 			// Instanciate a machine to add on the map
@@ -213,6 +218,10 @@ public class MapManager : Node
 
 			_tilesContainer.AddChild(newMachine);
 			_machineDictionary[offsetedCell] = newMachine;
+			if (machineType == MachineType.Output)
+			{
+				_machineDictionary[offsetedCell].ItemProduced = levelPrefab.TypeOfItemToWin;
+			}
 		}
 
 		// Reset the inputs so that they emit items when start is pressed

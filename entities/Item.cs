@@ -11,6 +11,13 @@ public class Item : Node2D
 
     public override void _Ready()
     {
+        VisualUpdate();
+
+        Destination = Position;
+    }
+
+    public void VisualUpdate()
+    {
         var cochonDirty = GetNode<AnimatedSprite>("Cochon_Dirty");
         var cochonClean = GetNode<AnimatedSprite>("Cochon_Clean");
         var cochonFat = GetNode<AnimatedSprite>("Cochon_Fat");
@@ -20,7 +27,6 @@ public class Item : Node2D
         cochonClean.Visible = false;
         cochonFat.Visible = false;
         pigFood.Visible = false;
-
         switch (Perks)
         {
             case PigPerks.None:
@@ -39,7 +45,6 @@ public class Item : Node2D
                 cochonClean.Visible = true;
                 break;
         }
-        Destination = Position;
     }
 
     public override void _Process(float delta)

@@ -23,7 +23,6 @@ public class InGameTransition : Control
     {
         if (@event is InputEventMouseButton mb)
         {
-            GD.Print("click ", _colorRect.Modulate.a);
             if (mb.ButtonIndex == (int)ButtonList.Left && mb.Pressed
                 && _colorRect.Modulate.a >= 1f) // Hacky but hey
             {
