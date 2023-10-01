@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Xml.Serialization;
 
 public class Machine : Node2D
 {
@@ -18,6 +19,7 @@ public class Machine : Node2D
     private Node2D _jonction;
     private Node2D _input;
     private Node2D _output;
+    private Sprite _treadmillSprite;
     private Node2D _washingMaching;
     private Node2D _brick;
     private TileType _tileType;
@@ -31,6 +33,8 @@ public class Machine : Node2D
         _output = GetNode<Node2D>("Output");
         _brick = GetNode<Node2D>("Brick");
 
+        _treadmillSprite = GetNode<Sprite>("Treadmill/Sprite");
+
         _treadmill.Visible = false;
         _jonction.Visible = false;
         _input.Visible = false;
@@ -38,6 +42,15 @@ public class Machine : Node2D
         _washingMaching.Visible = false;
 
         OnTileTypeChanged();
+    }
+
+    public override void _Process(float delta)
+    {
+        if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
+        {
+            var time = OS.GetSystemTimeMsecs();
+            _treadmillSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+        }
     }
 
     private void OnTileTypeChanged()

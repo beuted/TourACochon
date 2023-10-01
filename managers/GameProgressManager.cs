@@ -5,7 +5,6 @@ public class GameProgressManager : Node2D
 {
   [Signal] public delegate void game_won();
 
-
   public bool GameWon = false;
   public bool LevelWon = false;
   public int CurrentLevel = 0;
