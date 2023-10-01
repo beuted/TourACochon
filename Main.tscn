@@ -70,7 +70,7 @@ anchor_bottom = 1.0
 margin_top = -14.0
 margin_bottom = 39.0
 mouse_filter = 2
-color = Color( 1, 1, 1, 0.207843 )
+color = Color( 0, 0, 0, 0.670588 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
