@@ -23,10 +23,10 @@ public enum TileType
   MachineWasherDown = 16,
   MachineWasherLeft = 17,
   Brick = 18,
-  MachineFeederRight = 19,
-  MachineFeederUp = 20,
-  MachineFeederDown = 21,
-  MachineFeederLeft = 22,
+  MachineFeederRight = 20,
+  MachineFeederUp = 21,
+  MachineFeederDown = 22,
+  MachineFeederLeft = 23,
 }
 
 public static class TileTypeExtension
