@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Main.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/tileset.tres" type="TileSet" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://assets/graphics/tutorial.png" type="Texture" id=16]
 [ext_resource path="res://Tutorial.cs" type="Script" id=17]
 [ext_resource path="res://assets/graphics/tutorial2.png" type="Texture" id=18]
+[ext_resource path="res://assets/graphics/tutorial3.png" type="Texture" id=19]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -194,6 +195,17 @@ __meta__ = {
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 3 )]
 
+[node name="TutorialButton3" type="Button" parent="CanvasLayer"]
+margin_left = 180.0
+margin_top = 46.0
+margin_right = 771.0
+margin_bottom = 379.0
+icon = ExtResource( 19 )
+flat = true
+icon_align = 1
+expand_icon = true
+script = ExtResource( 17 )
+
 [node name="TutorialButton2" type="Button" parent="CanvasLayer"]
 margin_left = 177.0
 margin_top = 44.0
@@ -219,5 +231,6 @@ script = ExtResource( 17 )
 [connection signal="button_up" from="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton" to="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton" method="OnClick"]
 [connection signal="button_up" from="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton" to="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton" method="OnClick"]
 [connection signal="button_up" from="CanvasLayer/MuteButtons/VBoxContainer/MuteButton" to="CanvasLayer/MuteButtons/VBoxContainer/MuteButton" method="OnClick"]
+[connection signal="button_up" from="CanvasLayer/TutorialButton3" to="CanvasLayer/TutorialButton3" method="OnClick"]
 [connection signal="button_up" from="CanvasLayer/TutorialButton2" to="CanvasLayer/TutorialButton2" method="OnClick"]
 [connection signal="button_up" from="CanvasLayer/TutorialButton" to="CanvasLayer/TutorialButton" method="OnClick"]
