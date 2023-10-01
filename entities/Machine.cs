@@ -16,10 +16,14 @@ public class Machine : Node2D
     public bool IsCreatedByUser;
 
     private Node2D _treadmill;
+    private Node2D _treadmillUp;
+    private Node2D _treadmillDown;
     private Node2D _jonction;
     private Node2D _input;
     private Node2D _output;
     private Sprite _treadmillSprite;
+    private Sprite _treadmillUpSprite;
+    private Sprite _treadmillDownSprite;
     private Node2D _washingMaching;
     private Node2D _feedingMachine;
     private Node2D _brick;
@@ -28,6 +32,8 @@ public class Machine : Node2D
     public override void _Ready()
     {
         _treadmill = GetNode<Node2D>("Treadmill");
+        _treadmillUp = GetNode<Node2D>("TreadmillUp");
+        _treadmillDown = GetNode<Node2D>("TreadmillDown");
         _washingMaching = GetNode<Node2D>("MachineWasher");
         _feedingMachine = GetNode<Node2D>("MachineFeeder");
         _jonction = GetNode<Node2D>("Jonction");
@@ -36,21 +42,34 @@ public class Machine : Node2D
         _brick = GetNode<Node2D>("Brick");
 
         _treadmillSprite = GetNode<Sprite>("Treadmill/Sprite");
+        _treadmillUpSprite = GetNode<Sprite>("TreadmillUp/Sprite");
+        _treadmillDownSprite = GetNode<Sprite>("TreadmillDown/Sprite");
 
         OnTileTypeChanged();
     }
 
     public override void _Process(float delta)
     {
-        if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
+        if (TileType == TileType.TreadmillRight || TileType == TileType.TreadmillLeft)
         {
             var time = OS.GetSystemTimeMsecs();
             _treadmillSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+        }
+        if (TileType == TileType.TreadmillUp)
+        {
+            var time = OS.GetSystemTimeMsecs();
+            _treadmillUpSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+        }
+        if (TileType == TileType.TreadmillDown)
+        {
+            var time = OS.GetSystemTimeMsecs();
+            _treadmillDownSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
         }
     }
 
     private void OnTileTypeChanged()
     {
+
         if (_treadmill == null)
         {
             // Not properly initialized yet
@@ -59,16 +78,22 @@ public class Machine : Node2D
 
         ResetVisibility();
 
-        if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
+        if (TileType == TileType.TreadmillRight || TileType == TileType.TreadmillLeft)
         {
             _treadmill.Visible = true;
             switch (TileType)
             {
-                case TileType.TreadmillUp: _treadmill.RotationDegrees = 270; break;
-                case TileType.TreadmillRight: _treadmill.RotationDegrees = 0; break;
-                case TileType.TreadmillDown: _treadmill.RotationDegrees = 90; break;
-                case TileType.TreadmillLeft: _treadmill.RotationDegrees = 180; break;
+                case TileType.TreadmillRight: _treadmillSprite.FlipH = false; break;
+                case TileType.TreadmillLeft: _treadmillSprite.FlipH = true; break;
             }
+        }
+        else if (TileType == TileType.TreadmillUp)
+        {
+            _treadmillUp.Visible = true;
+        }
+        else if (TileType == TileType.TreadmillDown)
+        {
+            _treadmillDown.Visible = true;
         }
         else if (TileType == TileType.Jonction)
         {
@@ -126,15 +151,19 @@ public class Machine : Node2D
         {
             _brick.Visible = true;
         }
+
+        GD.Print(_treadmillSprite.FlipH, ", ", _treadmill.Visible);
+
     }
 
     private void ResetVisibility()
     {
         _treadmill.Visible = false;
+        _treadmillUp.Visible = false;
+        _treadmillDown.Visible = false;
         _jonction.Visible = false;
         _input.Visible = false;
         _output.Visible = false;
         _washingMaching.Visible = false;
-        _feedingMachine.Visible = false;
     }
 }

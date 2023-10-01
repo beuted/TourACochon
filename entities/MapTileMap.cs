@@ -51,5 +51,9 @@ public class MapTileMap : TileMap
             Vector2i tilePos = WorldToMap(GetGlobalMousePosition()) * 0.5f;
             _tileBuilderManager.HighlightPotentialMachine(tilePos);
         }
+        else if (evt is InputEventKey eventKey && eventKey.Pressed && eventKey.Scancode == (int)KeyList.R)
+        {
+            _mapManager.RotateHighlightPotentialMachine();
+        }
     }
 }
