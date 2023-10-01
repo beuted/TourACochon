@@ -100,47 +100,22 @@ public class MapManager : Node
 
 	public void ResetStartPipeOutputs()
 	{
-		var levelPrefab = _prefabLevels[_gameProgressManager.CurrentLevel];
-
-		var foundInput1 = false;
-		var foundInput2 = false;
-		var foundInput3 = false;
-
-		// Init _tileDictionary based on _tileMap
-		foreach (var key in _tileDictionary.Keys.ToList())
+		if (_tileDictionary.TryGetValue(new Vector2i(2, 2), out _))
 		{
-			var tileType = _tileDictionary[key].Type;
-
-			var machineType = tileType.GetMachineType();
-			if (machineType == MachineType.Input)
-			{
-				// Semi-Hack: we set the recipe of the input depending on the level here
-				if (!foundInput1)
-				{
-					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1, levelPrefab.TypeOfItemInput1
-					};
-					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput1;
-					foundInput1 = true;
-				}
-				else if (!foundInput2)
-				{
-					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2, levelPrefab.TypeOfItemInput2
-					};
-					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput2;
-					foundInput2 = true;
-				}
-				else if (!foundInput3)
-				{
-					_tileDictionary[key].Outputs = new List<PigPerks>() {
-						levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3, levelPrefab.TypeOfItemInput3
-					};
-					_machineDictionary[key].ItemProduced = levelPrefab.TypeOfItemInput3;
-					foundInput3 = true;
-				}
-			}
+			_tileDictionary[new Vector2i(2, 2)].Outputs = new List<PigPerks>() {
+				PigPerks.None, PigPerks.None, PigPerks.None, PigPerks.None, PigPerks.None
+			};
+			_machineDictionary[new Vector2i(2, 2)].ItemProduced = PigPerks.None;
 		}
+
+		if (_tileDictionary.TryGetValue(new Vector2i(2, 4), out _))
+		{
+			_tileDictionary[new Vector2i(2, 4)].Outputs = new List<PigPerks>() {
+				PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood
+			};
+			_machineDictionary[new Vector2i(2, 4)].ItemProduced = PigPerks.PigFood;
+		}
+
 	}
 
 	public void ResetItems()
@@ -201,8 +176,6 @@ public class MapManager : Node
 				{
 					[levelPrefab.TypeOfItemToWin] = 3,
 				};
-
-
 			}
 
 			// Instanciate a machine to add on the map

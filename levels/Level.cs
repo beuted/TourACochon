@@ -21,15 +21,6 @@ public class Level : TileMap
     [Export]
     public PigPerks TypeOfItemToWin = PigPerks.None;
 
-    [Export]
-    public PigPerks TypeOfItemInput1 = PigPerks.None;
-
-    [Export]
-    public PigPerks TypeOfItemInput2 = PigPerks.None;
-
-    [Export]
-    public PigPerks TypeOfItemInput3 = PigPerks.None;
-
     public override void _Ready()
     {
 
