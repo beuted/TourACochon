@@ -17,7 +17,6 @@ public class Tutorial : Control
     
     public void OnClick()
     {
-	    GD.Print("Close tutorial");
 	    this.Visible = false;
     }
     
