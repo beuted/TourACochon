@@ -54,10 +54,65 @@ texture = ExtResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="AvailableTiles" type="Control" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -73.0
+margin_bottom = -9.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/AvailableTiles"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+margin_bottom = 39.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.207843 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AvailableTiles"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -150.5
+margin_right = 150.5
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectTileButton" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+
+[node name="SelectTileButton2" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 79.0
+margin_right = 143.0
+MachineType = 1
+
+[node name="SelectTileButton3" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 158.0
+margin_right = 222.0
+MachineType = 2
+
+[node name="SelectTileButton4" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 237.0
+margin_right = 301.0
+MachineType = 3
+
+[node name="SelectTileButton5" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 316.0
+margin_right = 380.0
+MachineType = 4
+
 [node name="StartResetButton" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -68,9 +123,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -195.0
-margin_top = -75.0
+margin_top = -77.0
 margin_right = -11.0
-margin_bottom = -11.0
+margin_bottom = -13.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,12 +172,12 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/MuteButtons"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -78.0
-margin_top = 14.0
-margin_right = -14.0
-margin_bottom = 78.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 14.0
+margin_top = -76.0
+margin_right = 78.0
+margin_bottom = -12.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -142,50 +197,6 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AvailableTiles" type="Control" parent="CanvasLayer"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -73.0
-margin_bottom = -9.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AvailableTiles"]
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -150.5
-margin_right = 150.5
-custom_constants/separation = 15
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SelectTileButton" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-
-[node name="SelectTileButton2" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 79.0
-margin_right = 143.0
-MachineType = 1
-
-[node name="SelectTileButton3" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 158.0
-margin_right = 222.0
-MachineType = 2
-
-[node name="SelectTileButton4" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 237.0
-margin_right = 301.0
-MachineType = 3
-
-[node name="SelectTileButton5" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 316.0
-margin_right = 380.0
-MachineType = 4
 
 [node name="InGameTransition" parent="CanvasLayer" instance=ExtResource( 9 )]
 

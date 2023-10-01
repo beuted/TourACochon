@@ -10,7 +10,7 @@ public class SoundManager : Node
 
     public override void _Ready()
     {
-        _audioStreamPlayerMusic = GetNode<AudioStreamPlayer>($"AudioStreamPlayerMusic"); // Singleton
+        _audioStreamPlayerMusic = GetNode<AudioStreamPlayer>($"AudioStreamPlayerMusic");
     }
 
     public void Init()
