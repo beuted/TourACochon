@@ -145,7 +145,8 @@ public class MapManager : Node
 			var tileType = (TileType)levelPrefab.GetCell(cell.X, cell.Y);
 
 			_tileDictionary[offsetedCell] = new Tile(tileType);
-			if (tileType.GetMachineType() == MachineType.Output)
+			var machineType = tileType.GetMachineType();
+			if (machineType == MachineType.Output)
 			{
 				// Semi-Hack: we set the recipe of the output depending on the level here
 				_tileDictionary[offsetedCell].Recipe.Input = new Dictionary<PigPerks, int>()
@@ -159,6 +160,11 @@ public class MapManager : Node
 			newMachine.Position = new Vector2(offsetedCell.X * TileSize, offsetedCell.Y * TileSize);
 			newMachine.TileType = tileType;
 			newMachine.IsCreatedByUser = false;
+
+			if (machineType != MachineType.Output && machineType != MachineType.Input && machineType != MachineType.Brick)
+			{
+				newMachine.Modulate = new Color("d48e8e");
+			}
 
 			_tilesContainer.AddChild(newMachine);
 			_machineDictionary[offsetedCell] = newMachine;
