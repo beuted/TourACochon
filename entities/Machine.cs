@@ -12,6 +12,7 @@ public class Machine : Node2D
             OnTileTypeChanged();
         }
     }
+    public bool IsCreatedByUser;
 
     private Node2D _treadmill;
     private Node2D _jonction;

@@ -78,7 +78,7 @@ public class MapManager : Node
 		// Destroy all machines
 		foreach (var pos in _tileDictionary.Keys)
 		{
-			DestroyMachine(pos);
+			DestroyMachine(pos, true);
 		}
 
 		// Destory all items
@@ -130,6 +130,7 @@ public class MapManager : Node
 			var newMachine = _machineScene.Instance<Machine>();
 			newMachine.Position = new Vector2(offsetedCell.X * TileSize, offsetedCell.Y * TileSize);
 			newMachine.TileType = tileType;
+			newMachine.IsCreatedByUser = false;
 
 			_tilesContainer.AddChild(newMachine);
 			_machineDictionary[offsetedCell] = newMachine;
@@ -264,6 +265,12 @@ public class MapManager : Node
 			return;
 		}
 
+		if (!machine.IsCreatedByUser)
+		{
+			GD.Print("RotateMachine failed: this machine is not created by the user");
+			return;
+		}
+
 		TileType newTileType;
 		switch (machine.TileType)
 		{
@@ -305,6 +312,7 @@ public class MapManager : Node
 		var newMachine = _machineScene.Instance<Machine>();
 		newMachine.Position = new Vector2(pos.X * TileSize, pos.Y * TileSize);
 		newMachine.TileType = machineType.GetTileType(direction);
+		newMachine.IsCreatedByUser = true;
 
 		_tilesContainer.AddChild(newMachine);
 		_machineDictionary[pos] = newMachine;
@@ -312,7 +320,7 @@ public class MapManager : Node
 		return true; // sucess
 	}
 
-	public bool DestroyMachine(Vector2i pos)
+	public bool DestroyMachine(Vector2i pos, bool destroySystemMachine = false)
 	{
 		if (!_tileDictionary.TryGetValue(pos, out var tile))
 		{
@@ -320,9 +328,14 @@ public class MapManager : Node
 			return false;
 		}
 
-		_tileDictionary.Remove(pos);
-
 		var machine = _machineDictionary[pos];
+		if (!machine.IsCreatedByUser && !destroySystemMachine)
+		{
+			GD.Print("Destroy failed: this machine is not created by the user");
+			return false;
+		}
+
+		_tileDictionary.Remove(pos);
 		_machineDictionary.Remove(pos);
 		machine.QueueFree();
 
