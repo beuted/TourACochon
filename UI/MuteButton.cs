@@ -19,7 +19,7 @@ public class MuteButton : TextureButton
         _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
     }
 
-    void OnClick()
+    public void OnClick()
     {
         if (_soundManager.ToggleMuteMusic())
             _textureRect.Texture = _buttonNormalTexture;
