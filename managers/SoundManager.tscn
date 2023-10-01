@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://managers/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://assets/music/09 - Buttville - The Queen's Lair.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/fx/Mechanisms/machine base short.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/fx/Cochon/oink 2.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/fx/Cochon/oink 1.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/fx/Cochon/oink 4.wav" type="AudioStream" id=6]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,5 +13,15 @@ script = ExtResource( 1 )
 [node name="AudioStreamPlayerMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
+[node name="AudioStreamPlayerMachineBaseShort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -6.0
+
+[node name="AudioStreamPlayerPigSpawn1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="AudioStreamPlayerPigSpawn2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="AudioStreamPlayerPigSpawn3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )

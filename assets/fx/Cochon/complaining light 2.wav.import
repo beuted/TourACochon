@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/complaining light 2.wav-5717703d04c90b80d316b5f4dbd90270.sample"
+
+[deps]
+
+source_file="res://assets/fx/Cochon/complaining light 2.wav"
+dest_files=[ "res://.import/complaining light 2.wav-5717703d04c90b80d316b5f4dbd90270.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

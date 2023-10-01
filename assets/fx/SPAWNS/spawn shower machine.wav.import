@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spawn shower machine.wav-5b4640e8573883b100dcd21c202c096a.sample"
+
+[deps]
+
+source_file="res://assets/fx/SPAWNS/spawn shower machine.wav"
+dest_files=[ "res://.import/spawn shower machine.wav-5b4640e8573883b100dcd21c202c096a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

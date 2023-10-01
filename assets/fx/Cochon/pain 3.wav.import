@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pain 3.wav-40c801c3a28d8bd6d94c6853ad3efcbf.sample"
+
+[deps]
+
+source_file="res://assets/fx/Cochon/pain 3.wav"
+dest_files=[ "res://.import/pain 3.wav-40c801c3a28d8bd6d94c6853ad3efcbf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

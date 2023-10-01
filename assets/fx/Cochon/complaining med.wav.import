@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/complaining med.wav-2527fb00c3581b69d74c6087bdeccdef.sample"
+
+[deps]
+
+source_file="res://assets/fx/Cochon/complaining med.wav"
+dest_files=[ "res://.import/complaining med.wav-2527fb00c3581b69d74c6087bdeccdef.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

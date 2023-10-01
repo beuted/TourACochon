@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spawn sport machine.wav-8f0b48f190cce74a9ad412d3b7225e8a.sample"
+
+[deps]
+
+source_file="res://assets/fx/SPAWNS/spawn sport machine.wav"
+dest_files=[ "res://.import/spawn sport machine.wav-8f0b48f190cce74a9ad412d3b7225e8a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

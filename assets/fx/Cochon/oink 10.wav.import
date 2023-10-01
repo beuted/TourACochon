@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/oink 10.wav-68e3012c5ac7efc581d3d07236d356da.sample"
+
+[deps]
+
+source_file="res://assets/fx/Cochon/oink 10.wav"
+dest_files=[ "res://.import/oink 10.wav-68e3012c5ac7efc581d3d07236d356da.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
