@@ -15,6 +15,7 @@ public class MapManager : Node
 
 	private Node2D _itemsContainer;
 	private Node2D _tilesContainer;
+	private Machine _potentialMachine = null;
 
 	// This structure has been added to hold more info than the simple tileMap. It's initiated with it
 	private Dictionary<Vector2i, Tile> _tileDictionary = new Dictionary<Vector2i, Tile>();
@@ -70,6 +71,15 @@ public class MapManager : Node
 		_itemsContainer = itemsContainer;
 		_tilesContainer = tilesContainer;
 
+		if (_potentialMachine == null)
+		{
+			_potentialMachine = _machineScene.Instance<Machine>();
+			_potentialMachine.Modulate = new Color("49a1ff1e");
+			_potentialMachine.ZIndex = 2000;
+			_tilesContainer.AddChild(_potentialMachine);
+			_potentialMachine.Visible = false;
+		}
+
 		InitLevel(0);
 
 		// Set init to true
@@ -112,7 +122,7 @@ public class MapManager : Node
 			{ MachineType.Treadmill, levelPrefab.NbTreadmills },
 			{ MachineType.Jonction, levelPrefab.NbJonctions },
 			{ MachineType.MachineWasher, levelPrefab.NbMachineWashs },
-			{ MachineType.MachineFeed, levelPrefab.NbMachineFeeds },
+			{ MachineType.MachineFeeder, levelPrefab.NbMachineFeeds },
 		});
 
 		// Init victory conditions
@@ -135,6 +145,14 @@ public class MapManager : Node
 			var tileType = (TileType)levelPrefab.GetCell(cell.X, cell.Y);
 
 			_tileDictionary[offsetedCell] = new Tile(tileType);
+			if (tileType.GetMachineType() == MachineType.Output)
+			{
+				// Semi-Hack: we set the recipe of the output depending on the level here
+				_tileDictionary[offsetedCell].Recipe.Input = new Dictionary<PigPerks, int>()
+				{
+					[levelPrefab.TypeOfItemToWin] = 1,
+				};
+			}
 
 			// Instanciate a machine to add on the map
 			var newMachine = _machineScene.Instance<Machine>();
@@ -315,6 +333,10 @@ public class MapManager : Node
 			case TileType.MachineWasherRight: newTileType = TileType.MachineWasherDown; break;
 			case TileType.MachineWasherDown: newTileType = TileType.MachineWasherLeft; break;
 			case TileType.MachineWasherLeft: newTileType = TileType.MachineWasherUp; break;
+			case TileType.MachineFeederUp: newTileType = TileType.MachineFeederRight; break;
+			case TileType.MachineFeederRight: newTileType = TileType.MachineFeederDown; break;
+			case TileType.MachineFeederDown: newTileType = TileType.MachineFeederLeft; break;
+			case TileType.MachineFeederLeft: newTileType = TileType.MachineFeederUp; break;
 			default:
 				// No rotation for this machine
 				return;
@@ -350,6 +372,7 @@ public class MapManager : Node
 		_tilesContainer.AddChild(newMachine);
 		_machineDictionary[pos] = newMachine;
 
+		_potentialMachine.Visible = false;
 		return true; // sucess
 	}
 
@@ -383,21 +406,25 @@ public class MapManager : Node
 			case TileType.InputUp:
 			case TileType.OutputDown:
 			case TileType.MachineWasherUp:
+			case TileType.MachineFeederUp:
 				return Vector2.Up;
 			case TileType.TreadmillRight:
 			case TileType.InputRight:
 			case TileType.OutputLeft:
 			case TileType.MachineWasherRight:
+			case TileType.MachineFeederRight:
 				return Vector2.Right;
 			case TileType.TreadmillDown:
 			case TileType.InputDown:
 			case TileType.OutputUp:
 			case TileType.MachineWasherDown:
+			case TileType.MachineFeederDown:
 				return Vector2.Down;
 			case TileType.TreadmillLeft:
 			case TileType.InputLeft:
 			case TileType.OutputRight:
 			case TileType.MachineWasherLeft:
+			case TileType.MachineFeederLeft:
 				return Vector2.Left;
 			case TileType.Jonction: return previousDirection;
 			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
@@ -409,5 +436,38 @@ public class MapManager : Node
 		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * TileSize + TileSize / 2, cellPosi.Y * TileSize + TileSize / 2);
 
 		return currentPositionCenteredOnCell + (direction * TileSize);
+	}
+
+	internal void HighlightPotentialMachine(Vector2i tilePos, MachineType machineType)
+	{
+		if (tilePos.X < 3 || tilePos.Y < 1 || tilePos.X > 11 || tilePos.Y > 5)
+		{
+			// Out of boundaries
+			_potentialMachine.Visible = false;
+			return;
+		}
+
+		if (TryGetTileType(tilePos, out _))
+		{
+			// Tile already present
+			_potentialMachine.Visible = false;
+			return;
+		}
+
+		var tileType = machineType.GetTileType(Direction.Right);
+		var position = (Vector2)tilePos * TileSize;
+		if (_potentialMachine != null && _potentialMachine.TileType == tileType && _potentialMachine.Position == position)
+		{
+			// Already the right machine highlighted, nothing to do
+			_potentialMachine.Visible = true;
+			return;
+		}
+
+		if (tileType != _potentialMachine.TileType)
+		{
+			_potentialMachine.TileType = tileType;
+		}
+		_potentialMachine.Position = position;
+		_potentialMachine.Visible = true;
 	}
 }

@@ -21,6 +21,7 @@ public class Machine : Node2D
     private Node2D _output;
     private Sprite _treadmillSprite;
     private Node2D _washingMaching;
+    private Node2D _feedingMachine;
     private Node2D _brick;
     private TileType _tileType;
 
@@ -28,18 +29,13 @@ public class Machine : Node2D
     {
         _treadmill = GetNode<Node2D>("Treadmill");
         _washingMaching = GetNode<Node2D>("MachineWasher");
+        _feedingMachine = GetNode<Node2D>("MachineFeeder");
         _jonction = GetNode<Node2D>("Jonction");
         _input = GetNode<Node2D>("Input");
         _output = GetNode<Node2D>("Output");
         _brick = GetNode<Node2D>("Brick");
 
         _treadmillSprite = GetNode<Sprite>("Treadmill/Sprite");
-
-        _treadmill.Visible = false;
-        _jonction.Visible = false;
-        _input.Visible = false;
-        _output.Visible = false;
-        _washingMaching.Visible = false;
 
         OnTileTypeChanged();
     }
@@ -60,6 +56,8 @@ public class Machine : Node2D
             // Not properly initialized yet
             return;
         }
+
+        ResetVisibility();
 
         if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
         {
@@ -112,9 +110,31 @@ public class Machine : Node2D
                 case TileType.MachineWasherLeft: _washingMaching.RotationDegrees = 180; break;
             }
         }
+        else if (TileType == TileType.MachineFeederRight || TileType == TileType.MachineFeederDown || TileType == TileType.MachineFeederLeft || TileType == TileType.MachineFeederUp)
+        {
+            _feedingMachine.Visible = true;
+
+            switch (TileType)
+            {
+                case TileType.MachineFeederUp: _feedingMachine.RotationDegrees = 270; break;
+                case TileType.MachineFeederRight: _feedingMachine.RotationDegrees = 0; break;
+                case TileType.MachineFeederDown: _feedingMachine.RotationDegrees = 90; break;
+                case TileType.MachineFeederLeft: _feedingMachine.RotationDegrees = 180; break;
+            }
+        }
         else if (TileType == TileType.Brick)
         {
             _brick.Visible = true;
         }
+    }
+
+    private void ResetVisibility()
+    {
+        _treadmill.Visible = false;
+        _jonction.Visible = false;
+        _input.Visible = false;
+        _output.Visible = false;
+        _washingMaching.Visible = false;
+        _feedingMachine.Visible = false;
     }
 }

@@ -11,3 +11,5 @@ tile_data = PoolIntArray( -65538, 14, 0, -65537, 14, 0, -131072, 14, 0, -131071,
 script = ExtResource( 1 )
 NbTreadmills = 20
 NbMachineWashs = 2
+NbMachineFeeds = 1
+TypeOfItemToWin = 2

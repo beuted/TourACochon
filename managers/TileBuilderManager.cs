@@ -69,4 +69,15 @@ public class TileBuilderManager : Node2D
 
         EmitSignal(nameof(nb_machine_changed));
     }
+
+    internal void HighlightPotentialMachine(Vector2i tilePos)
+    {
+        if (!_selectedType.HasValue || NbMachineAvailables[_selectedType.Value] <= 0)
+        {
+            // No machine selected or out of this type of machine
+            return;
+        }
+
+        _mapManager.HighlightPotentialMachine(tilePos, _selectedType.Value);
+    }
 }
