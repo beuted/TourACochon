@@ -173,8 +173,6 @@ public class MapManager : Node
 		var hasPlayedPigSpawnSoundThisTick = false;
 		var hasPlayedMachineSoundThisTick = false;
 
-		GD.Print("pig sound ", hasPlayedMachineSoundThisTick, ", ", hasPlayedPigSpawnSoundThisTick);
-
 		// No need to outputs any item if the level has not started yet
 		if (!_gameProgressManager.InputStarted)
 			return;
@@ -228,8 +226,6 @@ public class MapManager : Node
 			var tile = _tileDictionary[posTile];
 			if (tile.Type.ProducesWithoutInput())
 			{
-				GD.Print("pig sound ", hasPlayedPigSpawnSoundThisTick);
-
 				if (!hasPlayedPigSpawnSoundThisTick)
 				{
 					_soundManager.PlayPigSpawn();
@@ -322,31 +318,18 @@ public class MapManager : Node
 			return;
 		}
 
-		TileType newTileType;
-		switch (machine.TileType)
+		var rotatedTileType = GetRotatedTileType(machine.TileType);
+		if (rotatedTileType == null)
 		{
-			case TileType.TreadmillUp: newTileType = TileType.TreadmillRight; break;
-			case TileType.TreadmillRight: newTileType = TileType.TreadmillDown; break;
-			case TileType.TreadmillDown: newTileType = TileType.TreadmillLeft; break;
-			case TileType.TreadmillLeft: newTileType = TileType.TreadmillUp; break;
-			case TileType.MachineWasherUp: newTileType = TileType.MachineWasherRight; break;
-			case TileType.MachineWasherRight: newTileType = TileType.MachineWasherDown; break;
-			case TileType.MachineWasherDown: newTileType = TileType.MachineWasherLeft; break;
-			case TileType.MachineWasherLeft: newTileType = TileType.MachineWasherUp; break;
-			case TileType.MachineFeederUp: newTileType = TileType.MachineFeederRight; break;
-			case TileType.MachineFeederRight: newTileType = TileType.MachineFeederDown; break;
-			case TileType.MachineFeederDown: newTileType = TileType.MachineFeederLeft; break;
-			case TileType.MachineFeederLeft: newTileType = TileType.MachineFeederUp; break;
-			default:
-				// No rotation for this machine
-				return;
+			// This machine cannot be rotated
+			return;
 		}
 
-		machine.TileType = newTileType;
-		_tileDictionary[pos].Type = newTileType;
+		machine.TileType = rotatedTileType.Value;
+		_tileDictionary[pos].Type = rotatedTileType.Value;
 	}
 
-	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
+	public bool PlaceMachine(Vector2i pos, MachineType machineType)
 	{
 		if (pos.X < 3 || pos.Y < 1 || pos.X > 11 || pos.Y > 5)
 		{
@@ -358,6 +341,12 @@ public class MapManager : Node
 		{
 			GD.Print("PlaceMachine failed: already a tile there");
 			return false;
+		}
+
+		var direction = _potentialMachine.TileType.GetDirection();
+		if (direction == Direction.Same)
+		{
+			direction = Direction.Right;
 		}
 
 		var tileType = machineType.GetTileType(direction);
@@ -400,33 +389,18 @@ public class MapManager : Node
 
 	private Vector2 GetItemNewDirection(TileType tileType, Vector2 previousDirection)
 	{
-		switch (tileType)
+		var direction = tileType.GetDirection();
+		switch (direction)
 		{
-			case TileType.TreadmillUp:
-			case TileType.InputUp:
-			case TileType.OutputDown:
-			case TileType.MachineWasherUp:
-			case TileType.MachineFeederUp:
+			case Direction.Up:
 				return Vector2.Up;
-			case TileType.TreadmillRight:
-			case TileType.InputRight:
-			case TileType.OutputLeft:
-			case TileType.MachineWasherRight:
-			case TileType.MachineFeederRight:
+			case Direction.Right:
 				return Vector2.Right;
-			case TileType.TreadmillDown:
-			case TileType.InputDown:
-			case TileType.OutputUp:
-			case TileType.MachineWasherDown:
-			case TileType.MachineFeederDown:
+			case Direction.Down:
 				return Vector2.Down;
-			case TileType.TreadmillLeft:
-			case TileType.InputLeft:
-			case TileType.OutputRight:
-			case TileType.MachineWasherLeft:
-			case TileType.MachineFeederLeft:
+			case Direction.Left:
 				return Vector2.Left;
-			case TileType.Jonction: return previousDirection;
+			case Direction.Same: return previousDirection;
 			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
 		}
 	}
@@ -456,7 +430,7 @@ public class MapManager : Node
 
 		var tileType = machineType.GetTileType(Direction.Right);
 		var position = (Vector2)tilePos * TileSize;
-		if (_potentialMachine != null && _potentialMachine.TileType == tileType && _potentialMachine.Position == position)
+		if (_potentialMachine != null && _potentialMachine.TileType.GetMachineType() == machineType && _potentialMachine.Position == position)
 		{
 			// Already the right machine highlighted, nothing to do
 			_potentialMachine.Visible = true;
@@ -469,5 +443,42 @@ public class MapManager : Node
 		}
 		_potentialMachine.Position = position;
 		_potentialMachine.Visible = true;
+	}
+
+	internal void RotateHighlightPotentialMachine()
+	{
+		if (_potentialMachine == null && _potentialMachine.Visible)
+		{
+			return;
+		}
+
+		var rotatedTileType = GetRotatedTileType(_potentialMachine.TileType);
+		if (rotatedTileType == null)
+		{
+			// This machine cannot be rotated
+			return;
+		}
+
+		_potentialMachine.TileType = rotatedTileType.Value;
+	}
+
+	private static TileType? GetRotatedTileType(TileType tileType)
+	{
+		switch (tileType)
+		{
+			case TileType.TreadmillUp: return TileType.TreadmillRight;
+			case TileType.TreadmillRight: return TileType.TreadmillDown;
+			case TileType.TreadmillDown: return TileType.TreadmillLeft;
+			case TileType.TreadmillLeft: return TileType.TreadmillUp;
+			case TileType.MachineWasherUp: return TileType.MachineWasherRight;
+			case TileType.MachineWasherRight: return TileType.MachineWasherDown;
+			case TileType.MachineWasherDown: return TileType.MachineWasherLeft;
+			case TileType.MachineWasherLeft: return TileType.MachineWasherUp;
+			case TileType.MachineFeederUp: return TileType.MachineFeederRight;
+			case TileType.MachineFeederRight: return TileType.MachineFeederDown;
+			case TileType.MachineFeederDown: return TileType.MachineFeederLeft;
+			case TileType.MachineFeederLeft: return TileType.MachineFeederUp;
+		}
+		return null;
 	}
 }

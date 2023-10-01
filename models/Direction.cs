@@ -4,4 +4,5 @@ public enum Direction
   Down = 1,
   Left = 2,
   Up = 3,
+  Same = 99,
 }
