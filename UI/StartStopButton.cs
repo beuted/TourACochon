@@ -25,7 +25,6 @@ public class StartStopButton : TextureButton
 
     public void OnClick()
     {
-        GD.Print("click");
         if (!_gameProgressManager.InputStarted)
         {
             _textureRect.Texture = _stopButtonTexture;

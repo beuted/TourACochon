@@ -7,7 +7,7 @@ public class TileBuilderManager : Node2D
     [Signal] public delegate void selected_machine_changed();
     [Signal] public delegate void nb_machine_changed();
 
-    private Dictionary<MachineType, int> _nbMachineAvailables = new Dictionary<MachineType, int>();
+    public Dictionary<MachineType, int> NbMachineAvailables = new Dictionary<MachineType, int>();
     private MachineType? _selectedType = null;
 
     private MapManager _mapManager;
@@ -21,12 +21,9 @@ public class TileBuilderManager : Node2D
 
     public void Init(Dictionary<MachineType, int> nbMachineAvailables)
     {
-        _nbMachineAvailables = nbMachineAvailables;
+        NbMachineAvailables = nbMachineAvailables;
 
-        foreach (var key in _nbMachineAvailables.Keys)
-        {
-            EmitSignal(nameof(nb_machine_changed), key, _nbMachineAvailables[key]);
-        }
+        EmitSignal(nameof(nb_machine_changed));
     }
 
     public void SelectMachine(MachineType machineType)
@@ -37,7 +34,7 @@ public class TileBuilderManager : Node2D
 
     public void PlaceMachine(Vector2i pos)
     {
-        if (!_selectedType.HasValue || _nbMachineAvailables[_selectedType.Value] <= 0)
+        if (!_selectedType.HasValue || NbMachineAvailables[_selectedType.Value] <= 0)
         {
             GD.Print("PlaceMachine failed: no selected tile our out of tile of this type");
             return;
@@ -49,9 +46,9 @@ public class TileBuilderManager : Node2D
         if (!sucess)
             return;
 
-        _nbMachineAvailables[_selectedType.Value]--;
+        NbMachineAvailables[_selectedType.Value]--;
 
-        EmitSignal(nameof(nb_machine_changed), _selectedType.Value, _nbMachineAvailables[_selectedType.Value]);
+        EmitSignal(nameof(nb_machine_changed));
     }
 
     public void DestroyMachine(Vector2i pos)
@@ -68,8 +65,8 @@ public class TileBuilderManager : Node2D
         if (!sucess)
             return;
 
-        _nbMachineAvailables[machineType]++;
+        NbMachineAvailables[machineType]++;
 
-        EmitSignal(nameof(nb_machine_changed), machineType, _nbMachineAvailables[machineType]);
+        EmitSignal(nameof(nb_machine_changed));
     }
 }

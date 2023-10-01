@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public class SelectTileButton : Control
 {
@@ -11,6 +12,8 @@ public class SelectTileButton : Control
     public int NbMachineAvailable = 4;
 
     private TileBuilderManager _tileBuilderManager;
+    private GameProgressManager _gameProgressManager;
+
     private ColorRect _colorRect;
     private Label _nbMachineLabel;
     private Sprite _sprite;
@@ -19,9 +22,11 @@ public class SelectTileButton : Control
     {
         // Autoloads
         _tileBuilderManager = (TileBuilderManager)GetNode($"/root/{nameof(TileBuilderManager)}"); // Singleton
+        _gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
 
         _tileBuilderManager.Connect("selected_machine_changed", this, nameof(SelectedMachineChanged));
         _tileBuilderManager.Connect("nb_machine_changed", this, nameof(NbMachineChanged));
+        _gameProgressManager.Connect("input_started_changed", this, nameof(InputStartedChanged));
 
 
         _colorRect = GetNode<ColorRect>("ColorRect");
@@ -31,9 +36,6 @@ public class SelectTileButton : Control
         _colorRect.Visible = false;
 
         _sprite.Frame = (int)MachineType;
-
-        // Init the button
-        NbMachineChanged(MachineType, 5);
     }
 
     public void OnClick()
@@ -59,22 +61,31 @@ public class SelectTileButton : Control
         }
     }
 
-    public void NbMachineChanged(MachineType machineSelected, int nbMachineAvailable)
+    public void NbMachineChanged()
     {
-        if (machineSelected == MachineType)
+        // Recompute the button visual status
+        foreach (var key in _tileBuilderManager.NbMachineAvailables.Keys.ToList())
         {
-            NbMachineAvailable = nbMachineAvailable;
-            _nbMachineLabel.Text = $"({nbMachineAvailable})";
+            if (key == MachineType)
+            {
+                NbMachineAvailable = _tileBuilderManager.NbMachineAvailables[key];
+                _nbMachineLabel.Text = $"({NbMachineAvailable})";
+                if (NbMachineAvailable <= 0 || _gameProgressManager.InputStarted)
+                {
+                    _sprite.Modulate = new Color(1f, 1f, 1f, 0.5f);
+                }
+                else
+                {
+                    _sprite.Modulate = new Color(1f, 1f, 1f, 1f);
+                }
+            }
         }
+    }
 
-        if (NbMachineAvailable <= 0)
-        {
-            _sprite.Modulate = new Color(1f, 1f, 1f, 0.5f);
-        }
-        else
-        {
-            _sprite.Modulate = new Color(1f, 1f, 1f, 1f);
-        }
+    public void InputStartedChanged()
+    {
+        // Same computation as NbMachineChanged
+        NbMachineChanged();
     }
 
 }

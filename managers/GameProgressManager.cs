@@ -19,6 +19,9 @@ public class GameProgressManager : Node2D
   public int NbItemToWin { get; private set; }
   public PigPerks TypeOfItemToWin { get; private set; }
 
+  [Signal] public delegate void input_started_changed();
+
+
   public override void _Ready()
   {
     // Autoloads
@@ -48,6 +51,7 @@ public class GameProgressManager : Node2D
   public void ResetLevel()
   {
     InputStarted = false;
+    EmitSignal(nameof(input_started_changed));
     _cameraManager.AddTrauma(0.3f);
     _mapManager.InitLevel(CurrentLevel);
   }
@@ -55,6 +59,8 @@ public class GameProgressManager : Node2D
   public void StopInputsResetItem()
   {
     InputStarted = false;
+    EmitSignal(nameof(input_started_changed));
+
     _mapManager.ResetItems();
   }
 
@@ -62,12 +68,14 @@ public class GameProgressManager : Node2D
   {
     _cameraManager.AddTrauma(0.3f);
     InputStarted = true;
-    //TODO
+    EmitSignal(nameof(input_started_changed));
   }
 
   public void GoToNextLevel()
   {
     InputStarted = false;
+    EmitSignal(nameof(input_started_changed));
+
     LevelWon = false;
     CurrentLevel++;
 
