@@ -8,10 +8,12 @@ public class Level : TileMap
 
     [Export]
     public int NbMachineWashs = 0;
+    
+    [Export]
+    public int NbMachineFeeds = 0;
 
     [Export]
     public int NbJonctions = 0;
-
 
     [Export]
     public int NbItemToWin = 1;

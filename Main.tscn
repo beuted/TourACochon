@@ -80,12 +80,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -150.5
+margin_left = -230.0
 margin_right = 150.5
 custom_constants/separation = 15
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SelectTileButton" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
 
@@ -108,6 +105,11 @@ MachineType = 3
 margin_left = 316.0
 margin_right = 380.0
 MachineType = 4
+
+[node name="SelectTileButton6" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 395.0
+margin_right = 459.0
+MachineType = 6
 
 [node name="StartResetButton" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0

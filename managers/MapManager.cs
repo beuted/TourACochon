@@ -112,6 +112,7 @@ public class MapManager : Node
 			{ MachineType.Treadmill, levelPrefab.NbTreadmills },
 			{ MachineType.Jonction, levelPrefab.NbJonctions },
 			{ MachineType.MachineWasher, levelPrefab.NbMachineWashs },
+			{ MachineType.MachineFeed, levelPrefab.NbMachineFeeds },
 		});
 
 		// Init victory conditions
