@@ -22,6 +22,7 @@ public enum TileType
   MachineWasherUp = 15,
   MachineWasherDown = 16,
   MachineWasherLeft = 17,
+  Brick = 18,
 }
 
 public static class TileTypeExtension
@@ -99,6 +100,8 @@ public static class TileTypeExtension
       case TileType.MachineWasherLeft:
       case TileType.MachineWasherUp:
         return MachineType.MachineWasher;
+      case TileType.Brick:
+        return MachineType.Brick;
       default: throw new Exception("GetMachineType unknown");
     }
   }

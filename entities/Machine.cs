@@ -19,6 +19,7 @@ public class Machine : Node2D
     private Node2D _input;
     private Node2D _output;
     private Node2D _washingMaching;
+    private Node2D _brick;
     private TileType _tileType;
 
     public override void _Ready()
@@ -28,6 +29,7 @@ public class Machine : Node2D
         _jonction = GetNode<Node2D>("Jonction");
         _input = GetNode<Node2D>("Input");
         _output = GetNode<Node2D>("Output");
+        _brick = GetNode<Node2D>("Brick");
 
         _treadmill.Visible = false;
         _jonction.Visible = false;
@@ -96,6 +98,10 @@ public class Machine : Node2D
                 case TileType.MachineWasherDown: _washingMaching.RotationDegrees = 90; break;
                 case TileType.MachineWasherLeft: _washingMaching.RotationDegrees = 180; break;
             }
+        }
+        else if (TileType == TileType.Brick)
+        {
+            _brick.Visible = true;
         }
     }
 }

@@ -9,6 +9,7 @@ public enum MachineType
   Output = 2,
   Input = 3,
   MachineWasher = 4,
+  Brick = 5,
 }
 
 public static class MachineTypeExtension
