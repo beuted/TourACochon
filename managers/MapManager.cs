@@ -172,6 +172,14 @@ public class MapManager : Node
 			}
 
 			var tileType = cell.Type;
+			var newDirection = GetItemNewDirection(tileType, item.Direction);
+			var newDestination = GetItemNewDestination(cellPosi, newDirection);
+			if (!_tileDictionary.ContainsKey(newDestination / TileSize))
+			{
+				// There is no tile at the destination, cannot move there
+				continue;
+			}
+
 			item.Direction = GetItemNewDirection(tileType, item.Direction);
 			item.Destination = GetItemNewDestination(cellPosi, item.Direction);
 		}
