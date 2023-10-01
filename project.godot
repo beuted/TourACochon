@@ -27,6 +27,12 @@ GameProgressManager="*res://managers/GameProgressManager.cs"
 
 window/size/width=960
 window/size/height=540
+window/size/resizable=false
+window/stretch/aspect="keep"
+
+[global]
+
+screen=false
 
 [mono]
 
