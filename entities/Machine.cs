@@ -37,13 +37,6 @@ public class Machine : Node2D
 
         _treadmillSprite = GetNode<Sprite>("Treadmill/Sprite");
 
-        _treadmill.Visible = false;
-        _jonction.Visible = false;
-        _input.Visible = false;
-        _output.Visible = false;
-        _washingMaching.Visible = false;
-        _feedingMachine.Visible = false;
-
         OnTileTypeChanged();
     }
 
@@ -63,6 +56,8 @@ public class Machine : Node2D
             // Not properly initialized yet
             return;
         }
+
+        ResetVisibility();
 
         if (TileType == TileType.TreadmillUp || TileType == TileType.TreadmillRight || TileType == TileType.TreadmillDown || TileType == TileType.TreadmillLeft)
         {
@@ -131,5 +126,15 @@ public class Machine : Node2D
         {
             _brick.Visible = true;
         }
+    }
+
+    private void ResetVisibility()
+    {
+        _treadmill.Visible = false;
+        _jonction.Visible = false;
+        _input.Visible = false;
+        _output.Visible = false;
+        _washingMaching.Visible = false;
+        _feedingMachine.Visible = false;
     }
 }
