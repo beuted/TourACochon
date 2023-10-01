@@ -8,7 +8,7 @@ public class Level : TileMap
 
     [Export]
     public int NbMachineWashs = 0;
-    
+
     [Export]
     public int NbMachineFeeds = 0;
 
@@ -20,6 +20,9 @@ public class Level : TileMap
 
     [Export]
     public PigPerks TypeOfItemToWin = PigPerks.None;
+
+    [Export]
+    public PigPerks? TypeOfItemInput1 = PigPerks.None;
 
     public override void _Ready()
     {

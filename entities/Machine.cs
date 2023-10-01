@@ -57,17 +57,17 @@ public class Machine : Node2D
         if (TileType == TileType.TreadmillRight || TileType == TileType.TreadmillLeft)
         {
             var time = OS.GetSystemTimeMsecs();
-            _treadmillSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+            _treadmillSprite.Frame = (int)((time % 400ul) / 50ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
         }
         if (TileType == TileType.TreadmillUp)
         {
             var time = OS.GetSystemTimeMsecs();
-            _treadmillUpSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+            _treadmillUpSprite.Frame = (int)((time % 400ul) / 50ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
         }
         if (TileType == TileType.TreadmillDown)
         {
             var time = OS.GetSystemTimeMsecs();
-            _treadmillDownSprite.Frame = (int)((time % 800ul) / 100ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
+            _treadmillDownSprite.Frame = (int)((time % 400ul) / 50ul); // This is done instead of using an animtation player in order to keep all treadmills in syn visually
         }
     }
 

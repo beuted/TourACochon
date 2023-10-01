@@ -4,9 +4,9 @@ public enum PigPerks
 {
   None = 0,
   Cleaned = 1,
-  Fat = 1 << 1,
-  Vaccinated = 1 << 2,
-  Strong = 1 << 3,
-  Happy = 1 << 4,
-  Bacon = 1 << 5,
+  Fat = 2,
+  Vaccinated = 3,
+  Strong = 4,
+  Happy = 5,
+  Bacon = 6,
 }

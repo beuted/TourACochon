@@ -42,6 +42,7 @@ offset = Vector2( 0, -3 )
 hframes = 8
 
 [node name="Jonction" type="Node2D" parent="."]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="Jonction"]
 texture = ExtResource( 3 )
@@ -60,9 +61,9 @@ centered = false
 hframes = 4
 
 [node name="Output" type="Node2D" parent="."]
-visible = false
 
 [node name="Sprite" type="Sprite" parent="Output"]
+position = Vector2( 0, -8 )
 z_index = 50
 texture = ExtResource( 10 )
 centered = false
