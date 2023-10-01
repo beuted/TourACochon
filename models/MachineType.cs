@@ -10,6 +10,7 @@ public enum MachineType
   Input = 3,
   MachineWasher = 4,
   Brick = 5,
+  MachineFeed = 6
 }
 
 public static class MachineTypeExtension
