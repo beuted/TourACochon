@@ -98,6 +98,48 @@ public class MapManager : Node
 		ResetItems();
 	}
 
+	public void ResetStartPipeOutputs()
+	{
+		var levelPrefab = _prefabLevels[_gameProgressManager.CurrentLevel];
+
+		var foundInput1 = false;
+		var foundInput2 = false;
+		var foundInput3 = false;
+
+		// Init _tileDictionary based on _tileMap
+		foreach (var key in _tileDictionary.Keys.ToList())
+		{
+			var tileType = _tileDictionary[key].Type;
+
+			var machineType = tileType.GetMachineType();
+			if (machineType == MachineType.Input)
+			{
+				// Semi-Hack: we set the recipe of the input depending on the level here
+				if (!foundInput1)
+				{
+					_tileDictionary[key].Outputs = new List<PigPerks>() {
+						levelPrefab.TypeOfItemInput1
+					};
+					foundInput1 = true;
+				}
+				else if (!foundInput2)
+				{
+					_tileDictionary[key].Outputs = new List<PigPerks>() {
+						levelPrefab.TypeOfItemInput2
+					};
+					foundInput2 = true;
+				}
+				else if (!foundInput3)
+				{
+					_tileDictionary[key].Outputs = new List<PigPerks>() {
+						levelPrefab.TypeOfItemInput3
+					};
+					foundInput3 = true;
+				}
+			}
+		}
+	}
+
 	public void ResetItems()
 	{
 		// Destory all items
@@ -106,6 +148,9 @@ public class MapManager : Node
 			var item = obj as Item;
 			item.QueueFree();
 		}
+
+		// Reset the inputs so that they emit items when start is pressed
+		ResetStartPipeOutputs();
 	}
 
 	public void InitLevel(int levelId)
@@ -170,6 +215,9 @@ public class MapManager : Node
 			_machineDictionary[offsetedCell] = newMachine;
 		}
 
+		// Reset the inputs so that they emit items when start is pressed
+		ResetStartPipeOutputs();
+
 		// Set init to true
 		_initialized = true;
 	}
@@ -230,7 +278,7 @@ public class MapManager : Node
 		foreach (var posTile in _tileDictionary.Keys.ToList())
 		{
 			var tile = _tileDictionary[posTile];
-			if (tile.Type.ProducesWithoutInput())
+			if (tile.Type.ProducesWithoutInput() && tile.Outputs.Count > 0)
 			{
 				if (!hasPlayedPigSpawnSoundThisTick)
 				{
@@ -240,7 +288,8 @@ public class MapManager : Node
 
 				var newItem = _itemScene.Instance<Item>();
 				newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
-				newItem.Perks = PigPerks.None;
+				newItem.Perks = tile.Outputs[0];
+				tile.Outputs.RemoveAt(0); // Remove element that we just spawned
 				_itemsContainer.AddChild(newItem);
 				continue;
 			}

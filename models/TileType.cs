@@ -80,6 +80,7 @@ public static class TileTypeExtension
           Input = new Dictionary<PigPerks, int>()
           {
             [PigPerks.Cleaned] = 1,
+            [PigPerks.PigFood] = 1,
           },
           Output = new List<PigPerks>() {
             PigPerks.Fat,

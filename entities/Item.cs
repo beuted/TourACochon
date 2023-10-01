@@ -14,10 +14,12 @@ public class Item : Node2D
         var cochonDirty = GetNode<AnimatedSprite>("Cochon_Dirty");
         var cochonClean = GetNode<AnimatedSprite>("Cochon_Clean");
         var cochonFat = GetNode<AnimatedSprite>("Cochon_Fat");
+        var pigFood = GetNode<Sprite>("PigFood");
 
         cochonDirty.Visible = false;
         cochonClean.Visible = false;
         cochonFat.Visible = false;
+        pigFood.Visible = false;
 
         switch (Perks)
         {
@@ -29,6 +31,9 @@ public class Item : Node2D
                 break;
             case PigPerks.Fat:
                 cochonFat.Visible = true;
+                break;
+            case PigPerks.PigFood:
+                pigFood.Visible = true;
                 break;
             default:
                 cochonClean.Visible = true;

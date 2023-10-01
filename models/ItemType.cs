@@ -9,4 +9,5 @@ public enum PigPerks
   Strong = 4,
   Happy = 5,
   Bacon = 6,
+  PigFood = 7,
 }

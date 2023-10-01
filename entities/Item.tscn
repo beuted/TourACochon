@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://entities/Item.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/cochon_dirty.png" type="Texture" id=2]
 [ext_resource path="res://assets/graphics/cochon_fat.png" type="Texture" id=3]
 [ext_resource path="res://assets/graphics/cochon.png" type="Texture" id=4]
+[ext_resource path="res://assets/graphics/items/PigFood.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
@@ -51,20 +52,28 @@ animations = [ {
 script = ExtResource( 1 )
 
 [node name="Cochon_Dirty" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "dirty"
 playing = true
 
 [node name="Cochon_Clean" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "clean"
 playing = true
 
 [node name="Cochon_Fat" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "fat"
 frame = 1
 playing = true
+
+[node name="PigFood" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -5 )
+texture = ExtResource( 5 )
