@@ -29,7 +29,7 @@ tracks/1/keys = {
 "values": [  ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath(".:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -71,16 +71,16 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("ColorRect:mouse_filter")
+tracks/2/path = NodePath(".:mouse_filter")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 2 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -98,7 +98,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:mouse_filter")
+tracks/1/path = NodePath(".:mouse_filter")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -106,7 +106,7 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 2 ]
 }
 

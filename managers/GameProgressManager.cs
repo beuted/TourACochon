@@ -5,8 +5,10 @@ public class GameProgressManager : Node2D
 {
   [Signal] public delegate void game_won();
 
+
+  public bool GameWon = false;
   public bool LevelWon = false;
-  public int CurrentLevel = -1;
+  public int CurrentLevel = 0;
   public int Lastlevel = 5;
 
   private SceneTransition _sceneTransition;
@@ -48,7 +50,8 @@ public class GameProgressManager : Node2D
 
     if (CurrentLevel == Lastlevel)
     {
-      GD.Print("Victory: TODO transition to winning screen");
+      GameWon = true;
+      _sceneTransition.FadeTo("Win.tscn");
       return;
     }
     _mapManager.InitLevel(CurrentLevel);

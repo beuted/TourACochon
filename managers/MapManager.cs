@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MapManager : Node
 {
@@ -45,7 +46,7 @@ public class MapManager : Node
 
 	public override void _Process(float delta)
 	{
-		if (!_initialized)
+		if (!_initialized || _gameProgressManager.GameWon)
 		{
 			return;
 		}
@@ -76,7 +77,7 @@ public class MapManager : Node
 	public void ClearLevel()
 	{
 		// Destroy all machines
-		foreach (var pos in _tileDictionary.Keys)
+		foreach (var pos in _tileDictionary.Keys.ToList())
 		{
 			DestroyMachine(pos, true);
 		}
@@ -186,7 +187,7 @@ public class MapManager : Node
 		}
 
 		// Create items out of inputs tiles
-		foreach (var posTile in _tileDictionary.Keys)
+		foreach (var posTile in _tileDictionary.Keys.ToList())
 		{
 			var tile = _tileDictionary[posTile];
 			if (tile.Type.ProducesWithoutInput())
