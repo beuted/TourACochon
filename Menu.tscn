@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Menu.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/background.png" type="Texture" id=2]
 [ext_resource path="res://assets/graphics/startbutton.png" type="Texture" id=3]
+[ext_resource path="res://assets/graphics/title.png" type="Texture" id=4]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -40,6 +41,11 @@ position = Vector2( 22.125, 21.625 )
 scale = Vector2( 2.14948, 2.21204 )
 z_index = -2
 texture = ExtResource( 2 )
+
+[node name="Title" type="Sprite" parent="."]
+position = Vector2( 502, 77 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
 
 [connection signal="pressed" from="VBoxContainer/TextureButton" to="." method="OnClickPlay"]
 [connection signal="button_up" from="VBoxContainer/ExitButton" to="." method="OnClickExit"]
