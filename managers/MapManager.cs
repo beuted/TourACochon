@@ -304,6 +304,7 @@ public class MapManager : Node
 
 					if (tile.Type.GetMachineType() == MachineType.Output)
 					{
+						GD.Print("yo?");
 						_gameProgressManager.IncrNbItemGathered();
 					}
 
