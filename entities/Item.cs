@@ -5,7 +5,7 @@ public class Item : Node2D
 {
     public PigPerks Perks = PigPerks.None;
 
-    private Sprite _sprite;
+    private AnimatedSprite _sprite;
 
     public Vector2 Destination;
     public Vector2 Direction = Vector2.Zero;
@@ -14,7 +14,7 @@ public class Item : Node2D
 
     public override void _Ready()
     {
-        _sprite = GetNode<Sprite>("Sprite");
+        _sprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         _sprite.Frame = (int)Perks;
 
