@@ -256,7 +256,8 @@ public class MapManager : Node
 			{
 				if (!cell.Recipe.Input.ContainsKey(item.Perks))
 				{
-					GD.Print("Item rejected, TODO: Print a message to the player");
+					_cameraManager.AddTrauma(0.3f);
+					_soundManager.PlayPigScream();
 				}
 				else
 				{

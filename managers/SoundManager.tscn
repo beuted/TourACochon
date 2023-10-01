@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://managers/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://assets/music/09 - Buttville - The Queen's Lair.mp3" type="AudioStream" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/fx/Cochon/oink 2.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/fx/Cochon/oink 1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/fx/Cochon/oink 4.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/fx/Cochon/complaining light 2.wav" type="AudioStream" id=7]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,6 +16,10 @@ stream = ExtResource( 2 )
 
 [node name="AudioStreamPlayerMachineBaseShort" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -6.0
+
+[node name="AudioStreamPlayerPigScream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
 volume_db = -6.0
 
 [node name="AudioStreamPlayerPigSpawn1" type="AudioStreamPlayer" parent="."]

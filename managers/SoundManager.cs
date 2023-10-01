@@ -5,6 +5,7 @@ public class SoundManager : Node
 {
     private AudioStreamPlayer _audioStreamPlayerMusic;
     private AudioStreamPlayer _audioStreamPlayerMachineBaseShort;
+    private AudioStreamPlayer _audioStreamPlayerPigScream;
     private AudioStreamPlayer _audioStreamPlayerPigSpawn1;
     private AudioStreamPlayer _audioStreamPlayerPigSpawn2;
     private AudioStreamPlayer _audioStreamPlayerPigSpawn3;
@@ -15,6 +16,7 @@ public class SoundManager : Node
     {
         _audioStreamPlayerMusic = GetNode<AudioStreamPlayer>($"AudioStreamPlayerMusic");
         _audioStreamPlayerMachineBaseShort = GetNode<AudioStreamPlayer>($"AudioStreamPlayerMachineBaseShort");
+        _audioStreamPlayerPigScream = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigScream");
         _audioStreamPlayerPigSpawn1 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigSpawn1");
         _audioStreamPlayerPigSpawn2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigSpawn2");
         _audioStreamPlayerPigSpawn3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigSpawn3");
@@ -24,6 +26,7 @@ public class SoundManager : Node
     {
         _audioStreamPlayerMusic.Bus = "Music";
         _audioStreamPlayerMachineBaseShort.Bus = "Effects";
+        _audioStreamPlayerPigScream.Bus = "Effects";
         _audioStreamPlayerPigSpawn1.Bus = "Effects";
         _audioStreamPlayerPigSpawn2.Bus = "Effects";
         _audioStreamPlayerPigSpawn3.Bus = "Effects";
@@ -38,6 +41,12 @@ public class SoundManager : Node
     public void PlayMachine()
     {
         _audioStreamPlayerMachineBaseShort.Play();
+    }
+
+    public void PlayPigScream()
+    {
+        if (!_audioStreamPlayerPigScream.Playing)
+            _audioStreamPlayerPigScream.Play();
     }
 
     public void PlayPigSpawn()
