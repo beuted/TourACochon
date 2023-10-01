@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.cs" type="Script" id=1]
 [ext_resource path="res://assets/graphics/tileset.tres" type="TileSet" id=2]
@@ -9,8 +9,12 @@
 [ext_resource path="res://entities/MapTileMap.cs" type="Script" id=7]
 [ext_resource path="res://assets/graphics/decor_tileset.tres" type="TileSet" id=8]
 [ext_resource path="res://UI/InGameTransition.tscn" type="PackedScene" id=9]
-[ext_resource path="res://MuteButton.cs" type="Script" id=10]
+[ext_resource path="res://UI/MuteButton.cs" type="Script" id=10]
 [ext_resource path="res://assets/graphics/button-normal.png" type="Texture" id=11]
+[ext_resource path="res://UI/StartStopButton.cs" type="Script" id=12]
+[ext_resource path="res://assets/graphics/start-button.png" type="Texture" id=13]
+[ext_resource path="res://assets/graphics/reset-button.png" type="Texture" id=14]
+[ext_resource path="res://UI/ResetLevelButton.cs" type="Script" id=15]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -50,6 +54,60 @@ texture = ExtResource( 5 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="StartResetButton" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/StartResetButton"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -195.0
+margin_top = -75.0
+margin_right = -11.0
+margin_bottom = -11.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartStopButton" type="TextureButton" parent="CanvasLayer/StartResetButton/VBoxContainer"]
+margin_right = 90.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 90, 64 )
+script = ExtResource( 12 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 90, 64 )
+texture = ExtResource( 13 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetLevelButton" type="TextureButton" parent="CanvasLayer/StartResetButton/VBoxContainer"]
+margin_left = 94.0
+margin_right = 184.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 90, 64 )
+script = ExtResource( 15 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 90, 64 )
+texture = ExtResource( 14 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MuteButtons" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -61,17 +119,15 @@ __meta__ = {
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/MuteButtons"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -64.0
-margin_bottom = 64.0
+margin_left = -78.0
+margin_top = 14.0
+margin_right = -14.0
+margin_bottom = 78.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MuteButton" type="TextureButton" parent="CanvasLayer/MuteButtons/VBoxContainer"]
-anchor_left = -0.359375
-anchor_top = 0.34375
-anchor_right = -0.359375
-anchor_bottom = 0.34375
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
@@ -91,7 +147,9 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -64.0
+margin_top = -73.0
+margin_bottom = -9.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -133,4 +191,6 @@ MachineType = 4
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 3 )]
 
+[connection signal="button_up" from="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton" to="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton" method="OnClick"]
+[connection signal="button_up" from="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton" to="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton" method="OnClick"]
 [connection signal="button_up" from="CanvasLayer/MuteButtons/VBoxContainer/MuteButton" to="CanvasLayer/MuteButtons/VBoxContainer/MuteButton" method="OnClick"]

@@ -56,7 +56,7 @@ public class MapManager : Node
 		{
 			Tick();
 
-			_cameraManager.AddTrauma(0.3f);
+			//_cameraManager.AddTrauma(0.3f);
 			_lastUpdateTimeMs = _lastUpdateTimeMs + TimeBetweenTurnMs;
 		}
 	}
@@ -82,6 +82,12 @@ public class MapManager : Node
 			DestroyMachine(pos, true);
 		}
 
+		// Destory all items
+		ResetItems();
+	}
+
+	public void ResetItems()
+	{
 		// Destory all items
 		foreach (var obj in _itemsContainer.GetChildren())
 		{
@@ -143,6 +149,10 @@ public class MapManager : Node
 
 	public void Tick()
 	{
+		// No need to outputs any item if the level has not started yet
+		if (!_gameProgressManager.InputStarted)
+			return;
+
 		// Setup new Destination for each items
 		foreach (var obj in _itemsContainer.GetChildren())
 		{
