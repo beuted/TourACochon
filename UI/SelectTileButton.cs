@@ -39,6 +39,9 @@ public class SelectTileButton : Control
     public void OnClick()
     {
         _tileBuilderManager.SelectMachine(MachineType);
+
+        // Stop propagation
+        GetTree().Root.SetInputAsHandled();
     }
 
     public void SelectedMachineChanged(MachineType machineSelected)

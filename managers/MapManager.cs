@@ -67,12 +67,33 @@ public class MapManager : Node
 		_itemsContainer = itemsContainer;
 		_tilesContainer = tilesContainer;
 
+		InitLevel(0);
+
 		// Set init to true
 		_initialized = true;
 	}
 
+	public void ClearLevel()
+	{
+		// Destroy all machines
+		foreach (var pos in _tileDictionary.Keys)
+		{
+			DestroyMachine(pos);
+		}
+
+		// Destory all items
+		foreach (var obj in _itemsContainer.GetChildren())
+		{
+			var item = obj as Item;
+			item.QueueFree();
+		}
+	}
+
 	public void InitLevel(int levelId)
 	{
+		// Clear the level first
+		ClearLevel();
+
 		var levelPrefab = _prefabLevels[levelId];
 
 		// Init the tiles thta will be available
@@ -96,12 +117,12 @@ public class MapManager : Node
 			var cell = (Vector2i)cellVect2.Value;
 
 			// We only copy what is within the map
-			if (cell.X < 0 || cell.Y < 0 || cell.X > 11 || cell.Y > 7)
+			if (cell.X < 0 || cell.Y < 1 || cell.X > 10 || cell.Y > 5)
 				continue;
 
-			var offsetedCell = new Vector2i(cell.X, cell.Y); //TODO temporary offset pour voir qqchose
+			var offsetedCell = new Vector2i(cell.X + 2, cell.Y + 0); //TODO: we offset the level to cetner it, that's hacky buy hey
 
-			var tileType = (TileType)levelPrefab.GetCell(offsetedCell.X, offsetedCell.Y);
+			var tileType = (TileType)levelPrefab.GetCell(cell.X, cell.Y);
 
 			_tileDictionary[offsetedCell] = new Tile(tileType);
 
@@ -257,8 +278,7 @@ public class MapManager : Node
 
 	public bool PlaceMachine(Vector2i pos, MachineType machineType, Direction direction)
 	{
-		GD.Print("pos ", pos);
-		if (pos.X < 0 || pos.X > 32 || pos.Y < 0 || pos.Y > 32)
+		if (pos.X < 3 || pos.Y < 1 || pos.X > 11 || pos.Y > 5)
 		{
 			GD.Print("PlaceMachine failed: out of boundaries");
 			return false;
@@ -292,9 +312,7 @@ public class MapManager : Node
 			return false;
 		}
 
-		GD.Print("DeleteMachine ", pos);
 		_tileDictionary.Remove(pos);
-
 
 		var machine = _machineDictionary[pos];
 		_machineDictionary.Remove(pos);

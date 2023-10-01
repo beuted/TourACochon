@@ -14,7 +14,7 @@ public class Menu : Node
 
     public void OnClickPlay()
     {
-        _sceneTransition.FadeTo("BetweenLevel.tscn");
+        _sceneTransition.FadeTo("Main.tscn");
     }
 
     public void OnClickExit()

@@ -29,13 +29,5 @@ public class SceneTransition : CanvasLayer
     {
         if (!string.IsNullOrEmpty(_path))
             GetTree().ChangeScene(_path);
-
-    }
-
-    private void UpdateMapABitAfterChangeScene()
-    {
-        // hacky as fuck
-        if (_path == "Main.tscn")
-            _gameProgressManager.GoToNextLevel();
     }
 }

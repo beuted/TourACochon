@@ -3,6 +3,9 @@ using System;
 
 public class GameProgressManager : Node2D
 {
+  [Signal] public delegate void game_won();
+
+  public bool LevelWon = false;
   public int CurrentLevel = -1;
   public int Lastlevel = 5;
 
@@ -22,6 +25,7 @@ public class GameProgressManager : Node2D
 
   public void Init(int nbItemToWin, PigPerks typeOfItemToWin)
   {
+    LevelWon = false;
     NbItemGathered = 0;
     NbItemToWin = nbItemToWin;
     TypeOfItemToWin = typeOfItemToWin;
@@ -30,12 +34,16 @@ public class GameProgressManager : Node2D
   public void IncrNbItemGathered()
   {
     NbItemGathered++;
-    if (NbItemGathered >= NbItemToWin)
-      _sceneTransition.FadeTo("BetweenLevel.tscn");
+    if (!LevelWon && NbItemGathered >= NbItemToWin)
+    {
+      LevelWon = true;
+      EmitSignal(nameof(game_won));
+    }
   }
 
   public void GoToNextLevel()
   {
+    LevelWon = false;
     CurrentLevel++;
 
     if (CurrentLevel == Lastlevel)
@@ -43,7 +51,6 @@ public class GameProgressManager : Node2D
       GD.Print("Victory: TODO transition to winning screen");
       return;
     }
-
     _mapManager.InitLevel(CurrentLevel);
   }
 }

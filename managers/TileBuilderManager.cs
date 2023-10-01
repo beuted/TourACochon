@@ -19,17 +19,14 @@ public class TileBuilderManager : Node2D
         _mapManager = (MapManager)GetNode($"/root/{nameof(MapManager)}"); // Singleton
     }
 
-    public void Init()
-    {
-        foreach (MachineType machineType in Enum.GetValues(typeof(MachineType)))
-        {
-            _nbMachineAvailables[machineType] = 5;
-        }
-    }
-
     public void Init(Dictionary<MachineType, int> nbMachineAvailables)
     {
         _nbMachineAvailables = nbMachineAvailables;
+
+        foreach (var key in _nbMachineAvailables.Keys)
+        {
+            EmitSignal(nameof(nb_machine_changed), key, _nbMachineAvailables[key]);
+        }
     }
 
     public void SelectMachine(MachineType machineType)

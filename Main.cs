@@ -19,7 +19,6 @@ public class Main : Node
         _mapManager.Init(GetNode<TileMap>("TileMap"), GetNode<Node2D>("ItemsContainer"), GetNode<Node2D>("VisualTiles"));
         _cameraManager.Init(GetNode<Camera>("Camera"));
         _soundManager.Init();
-        _tileBuilderManager.Init();
 
         // Start Music
         _soundManager.PlayMusic();
