@@ -89,9 +89,9 @@ public static class TileTypeExtension
     }
   }
 
-  public static MachineType GetMachineType(this TileType tileType)
+  public static MachineType GetMachineType(this TileType machineType)
   {
-    switch (tileType)
+    switch (machineType)
     {
       case TileType.Jonction:
         return MachineType.Jonction;
@@ -123,39 +123,6 @@ public static class TileTypeExtension
       case TileType.Brick:
         return MachineType.Brick;
       default: throw new Exception("GetMachineType unknown");
-    }
-  }
-
-  public static Direction GetDirection(this TileType tileType)
-  {
-    switch (tileType)
-    {
-      case TileType.TreadmillRight:
-      case TileType.InputRight:
-      case TileType.OutputRight:
-      case TileType.MachineWasherRight:
-      case TileType.MachineFeederRight:
-        return Direction.Right;
-      case TileType.TreadmillDown:
-      case TileType.InputDown:
-      case TileType.OutputDown:
-      case TileType.MachineWasherDown:
-      case TileType.MachineFeederDown:
-        return Direction.Down;
-      case TileType.TreadmillLeft:
-      case TileType.InputLeft:
-      case TileType.OutputLeft:
-      case TileType.MachineWasherLeft:
-      case TileType.MachineFeederLeft:
-        return Direction.Left;
-      case TileType.TreadmillUp:
-      case TileType.InputUp:
-      case TileType.OutputUp:
-      case TileType.MachineWasherUp:
-      case TileType.MachineFeederUp:
-        return Direction.Up;
-      case TileType.Jonction: return Direction.Same;
-      default: throw new Exception("GetDirection unknown");
     }
   }
 }

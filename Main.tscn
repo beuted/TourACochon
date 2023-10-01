@@ -40,7 +40,7 @@ cell_size = Vector2( 32, 32 )
 format = 1
 script = ExtResource( 7 )
 
-[node name="VisualTiles" type="YSort" parent="."]
+[node name="VisualTiles" type="Node2D" parent="."]
 scale = Vector2( 2, 2 )
 
 [node name="ItemsContainer" type="Node2D" parent="."]

@@ -41,7 +41,7 @@ public class TileBuilderManager : Node2D
         }
 
         // Actually place the machine on the map
-        var sucess = _mapManager.PlaceMachine(pos, _selectedType.Value);
+        var sucess = _mapManager.PlaceMachine(pos, _selectedType.Value, Direction.Right);
 
         if (!sucess)
             return;
