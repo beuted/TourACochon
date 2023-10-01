@@ -40,5 +40,16 @@ public class MapTileMap : TileMap
                 _tileBuilderManager.DestroyMachine(tilePos);
             }
         }
+        else if (evt is InputEventMouseMotion eventMouseMotion)
+        {
+            if (_gameProgressManager.InputStarted)
+            {
+                // Only show highlight in build mode
+                return;
+            }
+
+            Vector2i tilePos = WorldToMap(GetGlobalMousePosition()) * 0.5f;
+            _tileBuilderManager.HighlightPotentialMachine(tilePos);
+        }
     }
 }

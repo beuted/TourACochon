@@ -15,6 +15,7 @@ public class MapManager : Node
 
 	private Node2D _itemsContainer;
 	private Node2D _tilesContainer;
+	private Machine _potentialMachine = null;
 
 	// This structure has been added to hold more info than the simple tileMap. It's initiated with it
 	private Dictionary<Vector2i, Tile> _tileDictionary = new Dictionary<Vector2i, Tile>();
@@ -69,6 +70,15 @@ public class MapManager : Node
 
 		_itemsContainer = itemsContainer;
 		_tilesContainer = tilesContainer;
+
+		if (_potentialMachine == null)
+		{
+			_potentialMachine = _machineScene.Instance<Machine>();
+			_potentialMachine.Modulate = new Color("49a1ff1e");
+			_potentialMachine.ZIndex = 2000;
+			_tilesContainer.AddChild(_potentialMachine);
+			_potentialMachine.Visible = false;
+		}
 
 		InitLevel(0);
 
@@ -350,6 +360,7 @@ public class MapManager : Node
 		_tilesContainer.AddChild(newMachine);
 		_machineDictionary[pos] = newMachine;
 
+		_potentialMachine.Visible = false;
 		return true; // sucess
 	}
 
@@ -409,5 +420,38 @@ public class MapManager : Node
 		var currentPositionCenteredOnCell = new Vector2(cellPosi.X * TileSize + TileSize / 2, cellPosi.Y * TileSize + TileSize / 2);
 
 		return currentPositionCenteredOnCell + (direction * TileSize);
+	}
+
+	internal void HighlightPotentialMachine(Vector2i tilePos, MachineType machineType)
+	{
+		if (tilePos.X < 3 || tilePos.Y < 1 || tilePos.X > 11 || tilePos.Y > 5)
+		{
+			// Out of boundaries
+			_potentialMachine.Visible = false;
+			return;
+		}
+
+		if (TryGetTileType(tilePos, out _))
+		{
+			// Tile already present
+			_potentialMachine.Visible = false;
+			return;
+		}
+
+		var tileType = machineType.GetTileType(Direction.Right);
+		var position = (Vector2)tilePos * TileSize;
+		if (_potentialMachine != null && _potentialMachine.TileType == tileType && _potentialMachine.Position == position)
+		{
+			// Already the right machine highlighted, nothing to do
+			_potentialMachine.Visible = true;
+			return;
+		}
+
+		if (tileType != _potentialMachine.TileType)
+		{
+			_potentialMachine.TileType = tileType;
+		}
+		_potentialMachine.Position = position;
+		_potentialMachine.Visible = true;
 	}
 }
