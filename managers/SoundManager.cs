@@ -24,11 +24,10 @@ public class SoundManager : Node
         _audioStreamPlayerMusic.Play();
     }
 
-    public void ToggleMuteMusic()
+    public bool ToggleMuteMusic()
     {
         if (!_isMusicMuted)
         {
-            GD.Print("mute");
             AudioServer.SetBusMute(AudioServer.GetBusIndex("Music"), true);
         }
         else
@@ -37,6 +36,8 @@ public class SoundManager : Node
         }
 
         _isMusicMuted = !_isMusicMuted;
+
+        return !_isMusicMuted;
     }
 
     public void ToggleMuteEffects()

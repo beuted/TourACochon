@@ -176,7 +176,7 @@ public class MapManager : Node
 			var tileType = cell.Type;
 			var newDirection = GetItemNewDirection(tileType, item.Direction);
 			var newDestination = GetItemNewDestination(cellPosi, newDirection);
-			if (!_tileDictionary.ContainsKey(newDestination / TileSize))
+			if (!_tileDictionary.TryGetValue(newDestination / TileSize, out var destinationTile) || destinationTile.Type == TileType.Brick)
 			{
 				// There is no tile at the destination, cannot move there
 				continue;
