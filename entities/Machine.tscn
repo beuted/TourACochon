@@ -69,11 +69,11 @@ hframes = 20
 vframes = 15
 frame = 1
 
-[node name="MachineFeed" type="Node2D" parent="."]
+[node name="MachineFeeder" type="Node2D" parent="."]
 visible = false
 position = Vector2( 16, 16 )
 
-[node name="Sprite" type="Sprite" parent="MachineFeed"]
+[node name="Sprite" type="Sprite" parent="MachineFeeder"]
 z_index = 50
 texture = ExtResource( 3 )
 hframes = 10

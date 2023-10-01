@@ -23,6 +23,10 @@ public enum TileType
   MachineWasherDown = 16,
   MachineWasherLeft = 17,
   Brick = 18,
+  MachineFeederRight = 19,
+  MachineFeederUp = 20,
+  MachineFeederDown = 21,
+  MachineFeederLeft = 22,
 }
 
 public static class TileTypeExtension
@@ -67,6 +71,20 @@ public static class TileTypeExtension
             PigPerks.Cleaned,
           },
         };
+      case TileType.MachineFeederLeft:
+      case TileType.MachineFeederRight:
+      case TileType.MachineFeederUp:
+      case TileType.MachineFeederDown:
+        return new Recipe
+        {
+          Input = new Dictionary<PigPerks, int>()
+          {
+            [PigPerks.Cleaned] = 1,
+          },
+          Output = new List<PigPerks>() {
+            PigPerks.Fat,
+          },
+        };
       default: return null;
     }
   }
@@ -96,7 +114,12 @@ public static class TileTypeExtension
       case TileType.MachineWasherDown:
       case TileType.MachineWasherLeft:
       case TileType.MachineWasherUp:
-        return MachineType.MachineWasher;
+        return MachineType.MachineFeeder;
+      case TileType.MachineFeederRight:
+      case TileType.MachineFeederDown:
+      case TileType.MachineFeederLeft:
+      case TileType.MachineFeederUp:
+        return MachineType.MachineFeeder;
       case TileType.Brick:
         return MachineType.Brick;
       default: throw new Exception("GetMachineType unknown");

@@ -10,7 +10,7 @@ public enum MachineType
   Input = 3,
   MachineWasher = 4,
   Brick = 5,
-  MachineFeed = 6
+  MachineFeeder = 6
 }
 
 public static class MachineTypeExtension
@@ -71,6 +71,19 @@ public static class MachineTypeExtension
             return TileType.MachineWasherLeft;
           case Direction.Up:
             return TileType.MachineWasherUp;
+          default: throw new Exception("GetTileType unknown");
+        }
+      case MachineType.MachineFeeder:
+        switch (direction)
+        {
+          case Direction.Right:
+            return TileType.MachineFeederRight;
+          case Direction.Down:
+            return TileType.MachineFeederDown;
+          case Direction.Left:
+            return TileType.MachineFeederLeft;
+          case Direction.Up:
+            return TileType.MachineFeederUp;
           default: throw new Exception("GetTileType unknown");
         }
       default: throw new Exception("GetTileType unknown");

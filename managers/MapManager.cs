@@ -122,7 +122,7 @@ public class MapManager : Node
 			{ MachineType.Treadmill, levelPrefab.NbTreadmills },
 			{ MachineType.Jonction, levelPrefab.NbJonctions },
 			{ MachineType.MachineWasher, levelPrefab.NbMachineWashs },
-			{ MachineType.MachineFeed, levelPrefab.NbMachineFeeds },
+			{ MachineType.MachineFeeder, levelPrefab.NbMachineFeeds },
 		});
 
 		// Init victory conditions
@@ -333,6 +333,10 @@ public class MapManager : Node
 			case TileType.MachineWasherRight: newTileType = TileType.MachineWasherDown; break;
 			case TileType.MachineWasherDown: newTileType = TileType.MachineWasherLeft; break;
 			case TileType.MachineWasherLeft: newTileType = TileType.MachineWasherUp; break;
+			case TileType.MachineFeederUp: newTileType = TileType.MachineFeederRight; break;
+			case TileType.MachineFeederRight: newTileType = TileType.MachineFeederDown; break;
+			case TileType.MachineFeederDown: newTileType = TileType.MachineFeederLeft; break;
+			case TileType.MachineFeederLeft: newTileType = TileType.MachineFeederUp; break;
 			default:
 				// No rotation for this machine
 				return;
@@ -402,21 +406,25 @@ public class MapManager : Node
 			case TileType.InputUp:
 			case TileType.OutputDown:
 			case TileType.MachineWasherUp:
+			case TileType.MachineFeederUp:
 				return Vector2.Up;
 			case TileType.TreadmillRight:
 			case TileType.InputRight:
 			case TileType.OutputLeft:
 			case TileType.MachineWasherRight:
+			case TileType.MachineFeederRight:
 				return Vector2.Right;
 			case TileType.TreadmillDown:
 			case TileType.InputDown:
 			case TileType.OutputUp:
 			case TileType.MachineWasherDown:
+			case TileType.MachineFeederDown:
 				return Vector2.Down;
 			case TileType.TreadmillLeft:
 			case TileType.InputLeft:
 			case TileType.OutputRight:
 			case TileType.MachineWasherLeft:
+			case TileType.MachineFeederLeft:
 				return Vector2.Left;
 			case TileType.Jonction: return previousDirection;
 			default: throw new Exception("GetItemNewDestination case not handled !!!!!!!");
