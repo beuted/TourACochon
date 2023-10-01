@@ -50,10 +50,7 @@ public static class TileTypeExtension
       case TileType.OutputLeft:
         return new Recipe
         {
-          Input = new Dictionary<PigPerks, int>()
-          {
-            [PigPerks.Cleaned] = 1,
-          },
+          Input = new Dictionary<PigPerks, int>() { }, // Replaced dynamically at level init
           Output = new List<PigPerks>(),
         };
       case TileType.MachineWasherLeft:

@@ -145,6 +145,14 @@ public class MapManager : Node
 			var tileType = (TileType)levelPrefab.GetCell(cell.X, cell.Y);
 
 			_tileDictionary[offsetedCell] = new Tile(tileType);
+			if (tileType.GetMachineType() == MachineType.Output)
+			{
+				// Semi-Hack: we set the recipe of the output depending on the level here
+				_tileDictionary[offsetedCell].Recipe.Input = new Dictionary<PigPerks, int>()
+				{
+					[levelPrefab.TypeOfItemToWin] = 1,
+				};
+			}
 
 			// Instanciate a machine to add on the map
 			var newMachine = _machineScene.Instance<Machine>();
