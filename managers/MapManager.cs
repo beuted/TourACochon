@@ -173,8 +173,6 @@ public class MapManager : Node
 		var hasPlayedPigSpawnSoundThisTick = false;
 		var hasPlayedMachineSoundThisTick = false;
 
-		GD.Print("pig sound ", hasPlayedMachineSoundThisTick, ", ", hasPlayedPigSpawnSoundThisTick);
-
 		// No need to outputs any item if the level has not started yet
 		if (!_gameProgressManager.InputStarted)
 			return;
@@ -228,8 +226,6 @@ public class MapManager : Node
 			var tile = _tileDictionary[posTile];
 			if (tile.Type.ProducesWithoutInput())
 			{
-				GD.Print("pig sound ", hasPlayedPigSpawnSoundThisTick);
-
 				if (!hasPlayedPigSpawnSoundThisTick)
 				{
 					_soundManager.PlayPigSpawn();
