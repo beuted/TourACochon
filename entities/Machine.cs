@@ -149,10 +149,13 @@ public class Machine : Node2D
         _treadmill.Visible = false;
         _treadmillUp.Visible = false;
         _treadmillDown.Visible = false;
+        _washingMaching.Visible = false;
+        _feedingMachine.Visible = false;
         _jonction.Visible = false;
         _input.Visible = false;
         _output.Visible = false;
         _washingMaching.Visible = false;
         _feedingMachine.Visible = false;
+        _brick.Visible = false;
     }
 }
