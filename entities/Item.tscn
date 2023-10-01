@@ -6,26 +6,32 @@
 [ext_resource path="res://assets/graphics/cochon.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=4]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
+flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=6]
+flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
+flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 32, 0, 32, 32 )
 
@@ -54,18 +60,17 @@ script = ExtResource( 1 )
 visible = false
 frames = SubResource( 3 )
 animation = "dirty"
-frame = 1
 playing = true
 
 [node name="Cochon_Clean" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 3 )
 animation = "clean"
-frame = 1
 playing = true
 
 [node name="Cochon_Fat" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 3 )
 animation = "fat"
+frame = 1
 playing = true
