@@ -114,7 +114,7 @@ public static class TileTypeExtension
       case TileType.MachineWasherDown:
       case TileType.MachineWasherLeft:
       case TileType.MachineWasherUp:
-        return MachineType.MachineFeeder;
+        return MachineType.MachineWasher;
       case TileType.MachineFeederRight:
       case TileType.MachineFeederDown:
       case TileType.MachineFeederLeft:

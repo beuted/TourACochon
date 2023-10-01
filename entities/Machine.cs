@@ -106,26 +106,10 @@ public class Machine : Node2D
         else if (TileType == TileType.InputUp || TileType == TileType.InputRight || TileType == TileType.InputDown || TileType == TileType.InputLeft)
         {
             _input.Visible = true;
-
-            switch (TileType)
-            {
-                case TileType.InputUp: _input.RotationDegrees = 270; break;
-                case TileType.InputRight: _input.RotationDegrees = 0; break;
-                case TileType.InputDown: _input.RotationDegrees = 90; break;
-                case TileType.InputLeft: _input.RotationDegrees = 180; break;
-            }
         }
         else if (TileType == TileType.OutputRight || TileType == TileType.OutputDown || TileType == TileType.OutputLeft || TileType == TileType.OutputUp)
         {
             _output.Visible = true;
-
-            switch (TileType)
-            {
-                case TileType.OutputUp: _output.RotationDegrees = 270; break;
-                case TileType.OutputRight: _output.RotationDegrees = 0; break;
-                case TileType.OutputDown: _output.RotationDegrees = 90; break;
-                case TileType.OutputLeft: _output.RotationDegrees = 180; break;
-            }
         }
         else if (TileType == TileType.MachineWasherRight || TileType == TileType.MachineWasherDown || TileType == TileType.MachineWasherLeft || TileType == TileType.MachineWasherUp)
         {

@@ -90,24 +90,14 @@ margin_left = 79.0
 margin_right = 143.0
 MachineType = 1
 
-[node name="SelectTileButton3" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
+[node name="SelectTileButton5" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 158.0
 margin_right = 222.0
-MachineType = 2
-
-[node name="SelectTileButton4" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 237.0
-margin_right = 301.0
-MachineType = 3
-
-[node name="SelectTileButton5" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 316.0
-margin_right = 380.0
 MachineType = 4
 
 [node name="SelectTileButton6" parent="CanvasLayer/AvailableTiles/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 395.0
-margin_right = 459.0
+margin_left = 237.0
+margin_right = 301.0
 MachineType = 6
 
 [node name="StartResetButton" type="Control" parent="CanvasLayer"]
