@@ -152,6 +152,11 @@ public class MapManager : Node
 
 	public void Tick()
 	{
+		var hasPlayedPigSpawnSoundThisTick = false;
+		var hasPlayedMachineSoundThisTick = false;
+
+		GD.Print("pig sound ", hasPlayedMachineSoundThisTick, ", ", hasPlayedPigSpawnSoundThisTick);
+
 		// No need to outputs any item if the level has not started yet
 		if (!_gameProgressManager.InputStarted)
 			return;
@@ -205,7 +210,13 @@ public class MapManager : Node
 			var tile = _tileDictionary[posTile];
 			if (tile.Type.ProducesWithoutInput())
 			{
-				_soundManager.PlayPigSpawn();
+				GD.Print("pig sound ", hasPlayedPigSpawnSoundThisTick);
+
+				if (!hasPlayedPigSpawnSoundThisTick)
+				{
+					_soundManager.PlayPigSpawn();
+					hasPlayedPigSpawnSoundThisTick = true;
+				}
 
 				var newItem = _itemScene.Instance<Item>();
 				newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
@@ -231,8 +242,6 @@ public class MapManager : Node
 
 				numberOfRecipes = Math.Min(numberOfRecipes, inputCount / recipePerk.Value);
 			}
-			if (numberOfRecipes != 0)
-				_soundManager.PlayMachine();
 
 			// For each count of recipe, create an item and remove the inputs
 			for (var i = 0; i < numberOfRecipes; ++i)
@@ -258,6 +267,12 @@ public class MapManager : Node
 					newItem.Position = new Vector2(posTile.X * TileSize + TileSize / 2, posTile.Y * TileSize + TileSize / 2);
 					newItem.Perks = output;
 					_itemsContainer.AddChild(newItem);
+
+					if (!hasPlayedMachineSoundThisTick)
+					{
+						_soundManager.PlayMachine();
+						hasPlayedMachineSoundThisTick = true;
+					}
 				}
 			}
 		}
