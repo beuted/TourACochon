@@ -25,6 +25,7 @@ custom_constants/separation = 20
 margin_right = 306.0
 margin_bottom = 74.0
 rect_min_size = Vector2( 306, 74 )
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 3 )
 expand = true

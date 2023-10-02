@@ -109,9 +109,6 @@ MachineType = 6
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/StartResetButton"]
 anchor_left = 1.0
@@ -127,6 +124,7 @@ margin_bottom = -13.0
 margin_right = 90.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 90, 64 )
+mouse_default_cursor_shape = 2
 script = ExtResource( 12 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartResetButton/VBoxContainer/StartStopButton"]
@@ -144,6 +142,7 @@ margin_left = 94.0
 margin_right = 184.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 90, 64 )
+mouse_default_cursor_shape = 2
 script = ExtResource( 15 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartResetButton/VBoxContainer/ResetLevelButton"]
@@ -160,9 +159,6 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/MuteButtons"]
 anchor_top = 1.0
@@ -179,6 +175,7 @@ __meta__ = {
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+mouse_default_cursor_shape = 2
 script = ExtResource( 10 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/MuteButtons/VBoxContainer/MuteButton"]
