@@ -8,7 +8,7 @@ public class GameProgressManager : Node2D
   public bool GameWon = false;
   public bool LevelWon = false;
   public int CurrentLevel = 0;
-  public int Lastlevel = 5;
+  public int Lastlevel = 6;
 
   private SceneTransition _sceneTransition;
   private MapManager _mapManager;

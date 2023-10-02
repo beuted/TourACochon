@@ -324,14 +324,11 @@ public class MapManager : Node
 
 					if (!hasPlayedMachineSoundWaterThisTick && output == PigPerks.Cleaned)
 					{
-						GD.Print("hasPlayedMachineSoundWaterThisTick");
 						_soundManager.PlayMachineWater();
 						hasPlayedMachineSoundWaterThisTick = true;
 					}
 					else if (!hasPlayedMachineSoundFoodThisTick && output == PigPerks.Fat)
 					{
-						GD.Print("hasPlayedMachineSoundFoodThisTick");
-
 						_soundManager.PlayMachineFood();
 						hasPlayedMachineSoundFoodThisTick = true;
 					}
