@@ -370,6 +370,8 @@ public class MapManager : Node
 			return;
 		}
 
+		_soundManager.PlayBuildOrDestroySomething();
+
 		machine.TileType = rotatedTileType.Value;
 		_tileDictionary[pos].Type = rotatedTileType.Value;
 	}

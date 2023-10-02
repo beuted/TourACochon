@@ -19,6 +19,7 @@ public class SoundManager : Node
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill2;
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill3;
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill4;
+    private AudioStreamPlayer _audioStreamPlayerBuildOrDestroySomething;
     private bool _isMusicMuted = false;
     private bool _areEffectMuted = false;
 
@@ -41,6 +42,7 @@ public class SoundManager : Node
         _audioStreamPlayerBuildTreadmill2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill2");
         _audioStreamPlayerBuildTreadmill3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill3");
         _audioStreamPlayerBuildTreadmill4 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill4");
+        _audioStreamPlayerBuildOrDestroySomething = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildOrDestroySomething");
 
     }
 
@@ -59,6 +61,7 @@ public class SoundManager : Node
         _audioStreamPlayerBuildTreadmill2.Bus = "Effects";
         _audioStreamPlayerBuildTreadmill3.Bus = "Effects";
         _audioStreamPlayerBuildTreadmill4.Bus = "Effects";
+        _audioStreamPlayerBuildOrDestroySomething.Bus = "Effects";
     }
 
     public void PlayMusic()
@@ -110,8 +113,12 @@ public class SoundManager : Node
         }
     }
 
+    public void PlayBuildOrDestroySomething()
+    {
+        _audioStreamPlayerBuildOrDestroySomething.Play();
+    }
 
-    public void PlayBuildTreadmills()
+    public void PlayRandomTreadmillsSound()
     {
         if (!_audioStreamPlayerBuildTreadmill.Playing && !_audioStreamPlayerBuildTreadmill2.Playing && !_audioStreamPlayerBuildTreadmill3.Playing && !_audioStreamPlayerBuildTreadmill4.Playing)
         {

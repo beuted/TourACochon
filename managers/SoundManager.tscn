@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://managers/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://assets/music/Ska-Jam.ogg" type="AudioStream" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 2.ogg" type="AudioStream" id=15]
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 1.ogg" type="AudioStream" id=16]
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 3.ogg" type="AudioStream" id=17]
+[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de click1.ogg" type="AudioStream" id=18]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
@@ -84,3 +85,7 @@ volume_db = -20.0
 [node name="AudioStreamPlayerBuildTreadmill4" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 volume_db = -20.0
+
+[node name="AudioStreamPlayerBuildOrDestroySomething" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -25.0

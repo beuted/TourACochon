@@ -191,12 +191,14 @@ __meta__ = {
 [node name="InGameTransition" parent="CanvasLayer" instance=ExtResource( 9 )]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 3 )]
+visible = false
 
 [node name="TutorialButton3" type="Button" parent="CanvasLayer"]
 margin_left = 180.0
 margin_top = 46.0
 margin_right = 771.0
 margin_bottom = 379.0
+mouse_default_cursor_shape = 2
 icon = ExtResource( 19 )
 flat = true
 icon_align = 1
@@ -208,6 +210,7 @@ margin_left = 177.0
 margin_top = 44.0
 margin_right = 768.0
 margin_bottom = 377.0
+mouse_default_cursor_shape = 2
 icon = ExtResource( 18 )
 flat = true
 icon_align = 1
@@ -219,6 +222,7 @@ margin_left = 177.0
 margin_top = 44.0
 margin_right = 768.0
 margin_bottom = 377.0
+mouse_default_cursor_shape = 2
 icon = ExtResource( 16 )
 flat = true
 icon_align = 1

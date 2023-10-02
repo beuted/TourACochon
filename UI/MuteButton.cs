@@ -25,6 +25,8 @@ public class MuteButton : TextureButton
             _textureRect.Texture = _buttonNormalTexture;
         else
             _textureRect.Texture = _buttonMuteTexture;
+
+        _soundManager.PlayClick();
     }
 
 }

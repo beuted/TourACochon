@@ -42,12 +42,12 @@ public class TileBuilderManager : Node2D
         }
 
         // Actually place the machine on the map
-        var sucess = _mapManager.PlaceMachine(pos, _selectedType.Value);
+        var success = _mapManager.PlaceMachine(pos, _selectedType.Value);
 
-        if (!sucess)
+        if (!success)
             return;
 
-        _soundManager.PlayBuildTreadmills();
+        _soundManager.PlayBuildOrDestroySomething();
 
         NbMachineAvailables[_selectedType.Value]--;
 
@@ -63,10 +63,12 @@ public class TileBuilderManager : Node2D
         }
 
         var machineType = tileType.GetMachineType();
-        var sucess = _mapManager.DestroyMachine(pos);
+        var success = _mapManager.DestroyMachine(pos);
 
-        if (!sucess)
+        if (!success)
             return;
+
+        _soundManager.PlayBuildOrDestroySomething();
 
         NbMachineAvailables[machineType]++;
 
