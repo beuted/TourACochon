@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://managers/SoundManager.cs" type="Script" id=1]
 [ext_resource path="res://assets/music/Ska-Jam.ogg" type="AudioStream" id=2]
@@ -10,9 +10,7 @@
 [ext_resource path="res://assets/fx/Mechanisms/module food.ogg" type="AudioStream" id=8]
 [ext_resource path="res://assets/fx/Mechanisms/module water.ogg" type="AudioStream" id=9]
 [ext_resource path="res://assets/fx/ambiances de fond/ambiance fond usine.ogg" type="AudioStream" id=10]
-[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch21.ogg" type="AudioStream" id=11]
-[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch20.ogg" type="AudioStream" id=12]
-[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch23.ogg" type="AudioStream" id=13]
+[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de click3.ogg" type="AudioStream" id=11]
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 4.ogg" type="AudioStream" id=14]
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 2.ogg" type="AudioStream" id=15]
 [ext_resource path="res://assets/fx/ambiances de fond/tapis 1.ogg" type="AudioStream" id=16]
@@ -60,14 +58,6 @@ volume_db = -10.0
 
 [node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
-volume_db = -20.0
-
-[node name="AudioStreamPlayerClick2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
-volume_db = -20.0
-
-[node name="AudioStreamPlayerClick3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
 volume_db = -20.0
 
 [node name="AudioStreamPlayerBuildTreadmill" type="AudioStreamPlayer" parent="."]

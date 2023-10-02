@@ -13,8 +13,6 @@ public class SoundManager : Node
     private AudioStreamPlayer _audioStreamPlayerPigSpawn2;
     private AudioStreamPlayer _audioStreamPlayerPigSpawn3;
     private AudioStreamPlayer _audioStreamPlayerClick;
-    private AudioStreamPlayer _audioStreamPlayerClick2;
-    private AudioStreamPlayer _audioStreamPlayerClick3;
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill;
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill2;
     private AudioStreamPlayer _audioStreamPlayerBuildTreadmill3;
@@ -35,8 +33,6 @@ public class SoundManager : Node
         _audioStreamPlayerPigSpawn2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigSpawn2");
         _audioStreamPlayerPigSpawn3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerPigSpawn3");
         _audioStreamPlayerClick = GetNode<AudioStreamPlayer>($"AudioStreamPlayerClick");
-        _audioStreamPlayerClick2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerClick2");
-        _audioStreamPlayerClick3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerClick3");
 
         _audioStreamPlayerBuildTreadmill = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill");
         _audioStreamPlayerBuildTreadmill2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill2");
@@ -57,6 +53,8 @@ public class SoundManager : Node
         _audioStreamPlayerPigSpawn1.Bus = "Effects";
         _audioStreamPlayerPigSpawn2.Bus = "Effects";
         _audioStreamPlayerPigSpawn3.Bus = "Effects";
+        _audioStreamPlayerClick.Bus = "Effects";
+
         _audioStreamPlayerBuildTreadmill.Bus = "Effects";
         _audioStreamPlayerBuildTreadmill2.Bus = "Effects";
         _audioStreamPlayerBuildTreadmill3.Bus = "Effects";
@@ -104,13 +102,7 @@ public class SoundManager : Node
 
     public void PlayClick()
     {
-        var res = RandomGeneratorService.Random.RandiRange(1, 3);
-        switch (res)
-        {
-            case 1: _audioStreamPlayerClick.Play(); break;
-            case 2: _audioStreamPlayerClick2.Play(); break;
-            case 3: _audioStreamPlayerClick3.Play(); break;
-        }
+        _audioStreamPlayerClick.Play();
     }
 
     public void PlayBuildOrDestroySomething()
