@@ -9,7 +9,6 @@ public class MapManager : Node
 	public static float Speed = 100f;
 	public static ulong TimeBetweenTurnMs = 1000;
 	public static ulong _lastUpdateTimeMs;
-	public static int NbLevel = 5;
 
 	private List<Level> _prefabLevels = new List<Level>();
 
@@ -41,7 +40,7 @@ public class MapManager : Node
 
 		_lastUpdateTimeMs = OS.GetSystemTimeMsecs();
 
-		for (var i = 0; i <= NbLevel - 1; i++)
+		for (var i = 0; i <= _gameProgressManager.Lastlevel - 1; i++)
 		{
 			_prefabLevels.Add(ResourceLoader.Load<PackedScene>("res://levels/Level" + i + ".tscn").Instance() as Level);
 		}
@@ -103,7 +102,15 @@ public class MapManager : Node
 		if (_tileDictionary.TryGetValue(new Vector2i(2, 2), out _))
 		{
 			_tileDictionary[new Vector2i(2, 2)].Outputs = new List<PigPerks>() {
-				PigPerks.None, PigPerks.None, PigPerks.None, PigPerks.None, PigPerks.None
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.None
 			};
 			_machineDictionary[new Vector2i(2, 2)].ItemProduced = PigPerks.None;
 		}
@@ -111,7 +118,15 @@ public class MapManager : Node
 		if (_tileDictionary.TryGetValue(new Vector2i(2, 4), out _))
 		{
 			_tileDictionary[new Vector2i(2, 4)].Outputs = new List<PigPerks>() {
-				PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood, PigPerks.PigFood
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood, PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing,
+				PigPerks.PigFood
 			};
 			_machineDictionary[new Vector2i(2, 4)].ItemProduced = PigPerks.PigFood;
 		}
@@ -264,6 +279,12 @@ public class MapManager : Node
 			var tile = _tileDictionary[posTile];
 			if (tile.Type.ProducesWithoutInput() && tile.Outputs.Count > 0)
 			{
+				if (tile.Outputs[0] == PigPerks.ReallyNoneHackyStuffUsedForBufferAndInputNothing)
+				{
+					tile.Outputs.RemoveAt(0);
+					continue;
+				}
+
 				if (!hasPlayedPigSpawnSoundThisTick)
 				{
 					_soundManager.PlayPigSpawn();
@@ -305,7 +326,6 @@ public class MapManager : Node
 
 					if (tile.Type.GetMachineType() == MachineType.Output)
 					{
-						GD.Print("yo?");
 						_gameProgressManager.IncrNbItemGathered();
 					}
 

@@ -2,6 +2,7 @@ using System;
 
 public enum PigPerks
 {
+  ReallyNoneHackyStuffUsedForBufferAndInputNothing = -1,
   None = 0,
   Cleaned = 1,
   Fat = 2,
