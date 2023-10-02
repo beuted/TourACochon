@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/tapis 3.ogg-242cc1d1841c1be2d2ab5c3604bef6a4.oggstr"
+
+[deps]
+
+source_file="res://assets/fx/ambiances de fond/tapis 3.ogg"
+dest_files=[ "res://.import/tapis 3.ogg-242cc1d1841c1be2d2ab5c3604bef6a4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

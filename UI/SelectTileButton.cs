@@ -13,7 +13,7 @@ public class SelectTileButton : Control
 
     private TileBuilderManager _tileBuilderManager;
     private GameProgressManager _gameProgressManager;
-
+    private SoundManager _soundManager;
     private ColorRect _colorRect;
     private Label _nbMachineLabel;
     private Sprite _sprite;
@@ -23,6 +23,7 @@ public class SelectTileButton : Control
         // Autoloads
         _tileBuilderManager = (TileBuilderManager)GetNode($"/root/{nameof(TileBuilderManager)}"); // Singleton
         _gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
+        _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
 
         _tileBuilderManager.Connect("selected_machine_changed", this, nameof(SelectedMachineChanged));
         _tileBuilderManager.Connect("nb_machine_changed", this, nameof(NbMachineChanged));
@@ -41,6 +42,8 @@ public class SelectTileButton : Control
     public void OnClick()
     {
         _tileBuilderManager.SelectMachine(MachineType);
+
+        _soundManager.PlayClick();
 
         // Stop propagation
         GetTree().Root.SetInputAsHandled();

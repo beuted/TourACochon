@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://managers/SoundManager.cs" type="Script" id=1]
-[ext_resource path="res://assets/music/Babelochon.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/music/Ska-Jam.ogg" type="AudioStream" id=2]
 [ext_resource path="res://assets/fx/Mechanisms/machine base short.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/fx/Cochon/oink 2.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/fx/Cochon/oink 1.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/fx/Cochon/oink 4.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/fx/Cochon/complaining light 2.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/fx/Mechanisms/module food.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/fx/Mechanisms/module water.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/fx/ambiances de fond/ambiance fond usine.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch21.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch20.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/fx/kenney_ui-audio/Copie de switch23.ogg" type="AudioStream" id=13]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,9 +21,21 @@ script = ExtResource( 1 )
 stream = ExtResource( 2 )
 volume_db = 12.0
 
+[node name="AudioStreamBgSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -20.0
+
 [node name="AudioStreamPlayerMachineBaseShort" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -10.0
+volume_db = -12.0
+
+[node name="AudioStreamPlayerMachineFood" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -12.0
+
+[node name="AudioStreamPlayerMachineWater" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -12.0
 
 [node name="AudioStreamPlayerPigScream" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -34,3 +52,15 @@ volume_db = -10.0
 [node name="AudioStreamPlayerPigSpawn3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -10.0
+
+[node name="AudioStreamPlayerClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+
+[node name="AudioStreamPlayerClick2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -20.0
+
+[node name="AudioStreamPlayerClick3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -20.0

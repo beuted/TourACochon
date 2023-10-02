@@ -13,15 +13,10 @@ public class Main : Node
         // Autoloads
         _mapManager = (MapManager)GetNode($"/root/{nameof(MapManager)}"); // Singleton
         _cameraManager = (CameraManager)GetNode($"/root/{nameof(CameraManager)}"); // Singleton
-        _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
         _tileBuilderManager = (TileBuilderManager)GetNode($"/root/{nameof(TileBuilderManager)}"); // Singleton
 
         _mapManager.Init(GetNode<TileMap>("TileMap"), GetNode<Node2D>("ItemsContainer"), GetNode<Node2D>("VisualTiles"));
         _cameraManager.Init(GetNode<Camera>("Camera"));
-        _soundManager.Init();
-
-        // Start Music
-        _soundManager.PlayMusic();
     }
 
 }

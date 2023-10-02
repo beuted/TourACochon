@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ska-Jam.ogg-676cfb5294c8131787b677ec8c04ef2d.oggstr"
+
+[deps]
+
+source_file="res://assets/music/Ska-Jam.ogg"
+dest_files=[ "res://.import/Ska-Jam.ogg-676cfb5294c8131787b677ec8c04ef2d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

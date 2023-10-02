@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ambiance fond usine.ogg-05cb217518e327c4f53c41392a8d095e.oggstr"
+
+[deps]
+
+source_file="res://assets/fx/ambiances de fond/ambiance fond usine.ogg"
+dest_files=[ "res://.import/ambiance fond usine.ogg-05cb217518e327c4f53c41392a8d095e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

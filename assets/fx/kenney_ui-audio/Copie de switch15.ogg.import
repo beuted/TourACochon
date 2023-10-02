@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Copie de switch15.ogg-0f2cda453eeb4190ec01603466958530.oggstr"
+
+[deps]
+
+source_file="res://assets/fx/kenney_ui-audio/Copie de switch15.ogg"
+dest_files=[ "res://.import/Copie de switch15.ogg-0f2cda453eeb4190ec01603466958530.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

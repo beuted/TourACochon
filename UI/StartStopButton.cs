@@ -4,7 +4,7 @@ using System;
 public class StartStopButton : TextureButton
 {
     private GameProgressManager _gameProgressManager;
-
+    private SoundManager _soundManager;
     private Texture _startButtonTexture;
     private Texture _stopButtonTexture;
     private Texture _resetButtonTexture;
@@ -17,6 +17,7 @@ public class StartStopButton : TextureButton
     {
         // Autoloads
         _gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
+        _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
 
         _textureRect = GetNode<TextureRect>("TextureRect");
 
@@ -37,6 +38,7 @@ public class StartStopButton : TextureButton
         {
             _gameProgressManager.StopInputsResetItem();
         }
+        _soundManager.PlayClick();
     }
 
     public void InputStartedChanged()

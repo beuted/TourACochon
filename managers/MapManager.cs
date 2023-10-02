@@ -207,7 +207,8 @@ public class MapManager : Node
 	public void Tick()
 	{
 		var hasPlayedPigSpawnSoundThisTick = false;
-		var hasPlayedMachineSoundThisTick = false;
+		var hasPlayedMachineSoundFoodThisTick = false;
+		var hasPlayedMachineSoundWaterThisTick = false;
 
 		// No need to outputs any item if the level has not started yet
 		if (!_gameProgressManager.InputStarted)
@@ -321,10 +322,18 @@ public class MapManager : Node
 					newItem.Perks = output;
 					_itemsContainer.AddChild(newItem);
 
-					if (!hasPlayedMachineSoundThisTick)
+					if (!hasPlayedMachineSoundWaterThisTick && output == PigPerks.Cleaned)
 					{
-						_soundManager.PlayMachine();
-						hasPlayedMachineSoundThisTick = true;
+						GD.Print("hasPlayedMachineSoundWaterThisTick");
+						_soundManager.PlayMachineWater();
+						hasPlayedMachineSoundWaterThisTick = true;
+					}
+					else if (!hasPlayedMachineSoundFoodThisTick && output == PigPerks.Fat)
+					{
+						GD.Print("hasPlayedMachineSoundFoodThisTick");
+
+						_soundManager.PlayMachineFood();
+						hasPlayedMachineSoundFoodThisTick = true;
 					}
 				}
 			}

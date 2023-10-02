@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/module sport.ogg-dbb1b18d3a2e73310f9e2fd6c8bca9a7.oggstr"
+
+[deps]
+
+source_file="res://assets/fx/Mechanisms/module sport.ogg"
+dest_files=[ "res://.import/module sport.ogg-dbb1b18d3a2e73310f9e2fd6c8bca9a7.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
