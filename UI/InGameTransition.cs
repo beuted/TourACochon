@@ -5,15 +5,15 @@ public class InGameTransition : Control
 {
     private GameProgressManager _gameProgressManager;
     private AnimationPlayer _animationPlayer;
-    private ColorRect _colorRect;
+    private TextureRect _textureRect;
 
     public override void _Ready()
     {
         // Autoloads
         _gameProgressManager = (GameProgressManager)GetNode($"/root/{nameof(GameProgressManager)}"); // Singleton
 
-        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        _colorRect = GetNode<ColorRect>("ColorRect");
+        _animationPlayer = GetNode<AnimationPlayer>("ColorRect/AnimationPlayer");
+        _textureRect = GetNode<TextureRect>("ColorRect");
 
 
         _gameProgressManager.Connect("game_won", this, nameof(OnGameWon));
@@ -24,7 +24,7 @@ public class InGameTransition : Control
         if (@event is InputEventMouseButton mb)
         {
             if (mb.ButtonIndex == (int)ButtonList.Left && mb.Pressed
-                && _colorRect.Modulate.a >= 1f) // Hacky but hey
+                && (float)(_textureRect.Material as ShaderMaterial).GetShaderParam("progress") >= 1f) // Hacky but hey
             {
                 OnClick();
             }
