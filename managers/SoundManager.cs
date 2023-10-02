@@ -15,6 +15,10 @@ public class SoundManager : Node
     private AudioStreamPlayer _audioStreamPlayerClick;
     private AudioStreamPlayer _audioStreamPlayerClick2;
     private AudioStreamPlayer _audioStreamPlayerClick3;
+    private AudioStreamPlayer _audioStreamPlayerBuildTreadmill;
+    private AudioStreamPlayer _audioStreamPlayerBuildTreadmill2;
+    private AudioStreamPlayer _audioStreamPlayerBuildTreadmill3;
+    private AudioStreamPlayer _audioStreamPlayerBuildTreadmill4;
     private bool _isMusicMuted = false;
     private bool _areEffectMuted = false;
 
@@ -33,6 +37,11 @@ public class SoundManager : Node
         _audioStreamPlayerClick2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerClick2");
         _audioStreamPlayerClick3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerClick3");
 
+        _audioStreamPlayerBuildTreadmill = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill");
+        _audioStreamPlayerBuildTreadmill2 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill2");
+        _audioStreamPlayerBuildTreadmill3 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill3");
+        _audioStreamPlayerBuildTreadmill4 = GetNode<AudioStreamPlayer>($"AudioStreamPlayerBuildTreadmill4");
+
     }
 
     public void Init()
@@ -46,6 +55,10 @@ public class SoundManager : Node
         _audioStreamPlayerPigSpawn1.Bus = "Effects";
         _audioStreamPlayerPigSpawn2.Bus = "Effects";
         _audioStreamPlayerPigSpawn3.Bus = "Effects";
+        _audioStreamPlayerBuildTreadmill.Bus = "Effects";
+        _audioStreamPlayerBuildTreadmill2.Bus = "Effects";
+        _audioStreamPlayerBuildTreadmill3.Bus = "Effects";
+        _audioStreamPlayerBuildTreadmill4.Bus = "Effects";
     }
 
     public void PlayMusic()
@@ -96,6 +109,23 @@ public class SoundManager : Node
             case 3: _audioStreamPlayerClick3.Play(); break;
         }
     }
+
+
+    public void PlayBuildTreadmills()
+    {
+        if (!_audioStreamPlayerBuildTreadmill.Playing && !_audioStreamPlayerBuildTreadmill2.Playing && !_audioStreamPlayerBuildTreadmill3.Playing && !_audioStreamPlayerBuildTreadmill4.Playing)
+        {
+            var res = RandomGeneratorService.Random.RandiRange(1, 4);
+            switch (res)
+            {
+                case 1: _audioStreamPlayerBuildTreadmill.Play(); break;
+                case 2: _audioStreamPlayerBuildTreadmill2.Play(); break;
+                case 3: _audioStreamPlayerBuildTreadmill3.Play(); break;
+                case 4: _audioStreamPlayerBuildTreadmill4.Play(); break;
+            }
+        }
+    }
+
 
     public bool ToggleMuteMusic()
     {

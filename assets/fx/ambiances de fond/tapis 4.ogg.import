@@ -11,5 +11,5 @@ dest_files=[ "res://.import/tapis 4.ogg-b86f6c4036561f7b37790642a14cc107.oggstr"
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

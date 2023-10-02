@@ -13,6 +13,7 @@ public class Menu : Node
         _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
 
         _soundManager.Init();
+
         // Start Music
         _soundManager.PlayMusic();
     }

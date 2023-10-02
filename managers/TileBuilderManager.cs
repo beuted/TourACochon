@@ -11,12 +11,13 @@ public class TileBuilderManager : Node2D
     private MachineType? _selectedType = null;
 
     private MapManager _mapManager;
-
+    private SoundManager _soundManager;
 
     public override void _Ready()
     {
         // Autoloads
         _mapManager = (MapManager)GetNode($"/root/{nameof(MapManager)}"); // Singleton
+        _soundManager = (SoundManager)GetNode($"/root/{nameof(SoundManager)}"); // Singleton
     }
 
     public void Init(Dictionary<MachineType, int> nbMachineAvailables)
@@ -45,6 +46,8 @@ public class TileBuilderManager : Node2D
 
         if (!sucess)
             return;
+
+        _soundManager.PlayBuildTreadmills();
 
         NbMachineAvailables[_selectedType.Value]--;
 
